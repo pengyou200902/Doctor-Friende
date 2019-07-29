@@ -1,5 +1,5 @@
 # 说明
-- 本程序实现的是中文的医疗知识图谱的自动QA问答机器人，是基于新版的[rasa-1.1.8](https://rasa.com/)版本及其支持的外部组件实现的，并使用了图数据库neo4j构建知识图谱。
+- 本程序实现的是中文的医疗知识图谱的自动问答机器人MedicalKBQA，是基于新版的[rasa-1.1.8](https://rasa.com/)版本及其支持的外部组件实现的，并使用了图数据库neo4j构建知识图谱。
 
 - 会话管理使用的是rasa-core，rasa的pipeline配置如下：
         
@@ -13,8 +13,10 @@
       - name: "RegexFeaturizer"
       - name: "MitieFeaturizer"
       - name: "SklearnIntentClassifier"
-      
+
 - *注意*： rasa-nlu和rasa-core已经合并成rasa
+
+- Rasa训练数据集的构造： 使用到了[Chatito工具](https://rodrigopivi.github.io/Chatito/)
 
 # 配置环境（python==3.6.8）
 1. 下载zip包或者git clone 
@@ -39,7 +41,7 @@
 - 修改MedicalSpider.process_data下的create_graph.py，把neo4j数据库的链接信息改成你自己的，然后运行该文件
 （为了防止路径问题，建议使用pycharm打开本项目后运行）
 
-- *关于爬虫*：爬虫实现是使用了[scrapy](https://scrapy.org/)库。
+- *关于爬虫*：爬虫实现是使用了[scrapy](https://scrapy.org/)库，若想运行，可以在Doctor-Friende目录下运行SpiderMain.py
 
 - 整体规模：
     - 13,635 nodes (5 labels)
