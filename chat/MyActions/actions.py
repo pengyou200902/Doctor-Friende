@@ -9,7 +9,7 @@ from markdownify import markdownify as md
 p = 'data/medical/lookup/Diseases.txt'
 disease_names = [i.strip() for i in open(p, 'r', encoding='UTF-8').readlines()]
 # default neo4j account should be user="neo4j", password="neo4j"
-# graph = Graph(host="127.0.0.1", http_port=7474, user="youruser", password="yourpassword")
+graph = Graph(host="127.0.0.1", http_port=7474, user="youruser", password="yourpassword")
 
 
 def retrieve_disease_name(name):
@@ -161,7 +161,7 @@ class ActionSearchFood(Action):
                 buttons.append(make_button(d, '/search_food{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 相关的饮食记录".format(disease))
         return []
 
 
@@ -190,7 +190,7 @@ class ActionSearchSymptom(Action):
                 buttons.append(make_button(d, '/search_symptom{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 相关的症状记录".format(disease))
 
         return []
 
@@ -223,7 +223,7 @@ class ActionSearchCause(Action):
                 buttons.append(make_button(d, '/search_cause{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 相关的原因记录".format(disease))
         return []
 
 
@@ -252,7 +252,7 @@ class ActionSearchNeopathy(Action):
                 buttons.append(make_button(d, '/search_neopathy{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 相关的并发症记录".format(disease))
         return []
 
 
@@ -284,7 +284,7 @@ class ActionSearchDrug(Action):
                 buttons.append(make_button(d, '/search_drug{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 相关的用药记录".format(disease))
         return []
 
 
@@ -316,7 +316,7 @@ class ActionSearchPrevention(Action):
                 buttons.append(make_button(d, '/search_prevention{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 相关的预防记录".format(disease))
         return []
 
 
@@ -368,7 +368,7 @@ class ActionSearchDiseaseTreatTime(Action):
                 buttons.append(make_button(d, '/search_disease_treat_time{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 相关的治疗时间记录".format(disease))
         return []
 
 
@@ -397,7 +397,7 @@ class ActionSearchEasyGet(Action):
                 buttons.append(make_button(d, '/search_easy_get{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 相关的易感人群记录".format(disease))
         return []
 
 
@@ -426,5 +426,5 @@ class ActionSearchDiseaseDept(Action):
                 buttons.append(make_button(d, '/search_disease_dept{{"disease":"{0}", "sure":"{1}"}}'.format(d, d)))
             dispatcher.utter_button_message("请点击选择想查询的疾病，若没有想要的，请忽略此消息", buttons)
         else:
-            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的记录".format(disease))
+            dispatcher.utter_message("知识库中暂无与 {0} 疾病相关的科室记录".format(disease))
         return []
