@@ -1,0 +1,28 @@
+language: "zh"
+
+policies:
+  - name: "rasa.core.policies.keras_policy.KerasPolicy"
+    epochs: 120
+    featurizer:
+      - name: MaxHistoryTrackerFeaturizer
+        max_history: 5
+        state_featurizer:
+          - name: BinarySingleStateFeaturizer
+  - name: "rasa.core.policies.memoization.MemoizationPolicy"
+    max_history: 5
+  - name: "rasa.core.policies.mapping_policy.MappingPolicy"
+  - name: "rasa.core.policies.fallback.FallbackPolicy"
+    nlu_threshold: 0.4
+    core_threshold: 0.3
+    fallback_action_name: 'action_donknow'
+
+pipeline:
+- name: "MitieNLP"
+  model: "data/total_word_feature_extractor_zh.dat"
+- name: "JiebaTokenizer"
+  dictionary_path: "jieba_userdict"
+- name: "MitieEntityExtractor"
+- name: "EntitySynonymMapper"
+- name: "RegexFeaturizer"
+- name: "MitieFeaturizer"
+- name: "SklearnIntentClassifier"
