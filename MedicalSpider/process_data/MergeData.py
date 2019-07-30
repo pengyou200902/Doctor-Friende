@@ -25,7 +25,7 @@ def process_data(paths):
     return diseases
 
 
-def merge(diseases: dict):    # 接收过来是字典
+def merge(diseases: dict):
     set_dis = set()
     print('Original diseases: %d' % len(diseases))
     f = open(datadir + 'medical.json', 'a', encoding='UTF-8')
@@ -84,5 +84,5 @@ if __name__ == '__main__':
     datafiles = get_data_file(datadir)
     print(datafiles)
     diseases = process_data(datafiles)
-    # merge(diseases)
+    merge(diseases)
     check_id(diseases)
