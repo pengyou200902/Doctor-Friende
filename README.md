@@ -91,7 +91,13 @@
 
 - 所以前端使用了webchat.js，[rasa-webchat](https://github.com/mrbot-ai/rasa-webchat)
 
-- [rasa-doc](https://rasa.com/docs)或者[legacy-rasa-doc](https://legacy-docs.rasa.com/docs/)建议先看第一个
+- [Scrapy](https://scrapy.org)
+
+- [Neo4j](https://neo4j.org)
+
+- [py2neo](https://py2neo.org)
+
+- [rasa-doc](https://rasa.com/docs)或者旧版[legacy-rasa-doc](https://legacy-docs.rasa.com/docs/)建议先看第一个
   
 - [rasa-forum](https://forum.rasa.com/)论坛上也会有很多问题的讨论，可以搜索  
 
