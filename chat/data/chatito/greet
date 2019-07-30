@@ -1,0 +1,22 @@
+// Ways to say hello
+
+import ./common.chatito
+
+%[greet]('training': '500', 'testing': '50')
+    *[20%] ~[hi]
+    ~[greetings]
+    ~[hi] ~[greetings?]
+
+~[greetings]
+    你好
+    早上好
+    中午好
+    晚上好
+    晚安
+    早安
+    在吗
+    有人吗
+    有人在吗
+    人呢
+    没人吗
+    怎么没人

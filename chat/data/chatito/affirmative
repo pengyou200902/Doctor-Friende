@@ -1,0 +1,23 @@
+// Ways to say yes
+
+import ./common.chatito
+
+%[affirmative]('training': '200', 'testing': '20')
+    *[20%] ~[yes]
+    ~[yes] ~[yes?] ~[thanks?]
+    ~[yes?] ~[thats_good] ~[yes?]
+
+~[yes]
+    是
+    对
+    没错
+    正确
+    好的
+
+~[thats_good]
+    那个好
+    这个不错
+    这个可以
+    行的
+    那行
+    那好
