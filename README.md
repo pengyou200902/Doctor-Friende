@@ -68,11 +68,11 @@
 
 1. 打开2个终端，都cd到chat目录下，conda记得activate环境  
 
-1. 一个终端
+1. 一个终端（启动Action Server）
 
        rasa run actions --actions MyActions.actions --cors "*" -vv  
 
-1. 另一个终端
+1. 另一个终端（启动NLU & Core Server）
 
        rasa run --enable-api -m models/medical-final-m3/20190728-212653.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
 
@@ -97,7 +97,7 @@
 
 # TODO
 - 上传前端项目
-- 写report
+- ~~写report~~
 - 优化readme
 
 ## 如有问题可以issue
