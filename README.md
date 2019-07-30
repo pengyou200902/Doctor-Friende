@@ -76,7 +76,7 @@
 
        rasa run --enable-api -m models/medical-final-m3/20190728-212653.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
 
-1. 前端页面位于：
+1. 前端页面位于：[ChatHTML](https://github.com/pengyou200902/ChatHTML)
 
 1. *提示*：
 
