@@ -1,4 +1,4 @@
-# [Demo-Video-Here]([https://www.bilibili.com/video/av61715811/)
+# [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
 
 # DEMO-GIF
 ![image](img/demo-1.gif)
