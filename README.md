@@ -1,3 +1,8 @@
+# DEMO-GIF
+![image](img/demo-1.gif)
+
+![image](img/demo-2.gif)
+
 # 说明
 - 本程序实现的是中文的医疗知识图谱的自动问答机器人MedicalKBQA，是基于新版的[rasa-1.1.8](https://rasa.com/)版本及其支持的外部组件实现的，并使用了图数据库neo4j构建知识图谱。
 
