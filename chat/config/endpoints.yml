@@ -1,2 +1,10 @@
 action_endpoint:
   url: "http://localhost:5055/webhook"
+
+tracker_store:
+    type: SQL
+    dialect: "mysql+mysqldb"  # the dialect used to interact with the db
+    url: "localhost"  # (optional) host of the sql db, e.g. "localhost"
+    db: "rasa"  # path to your db
+    username: "doctor-friende"  # username used for authentication
+    password: "doctor-friende"  # password used for authentication
