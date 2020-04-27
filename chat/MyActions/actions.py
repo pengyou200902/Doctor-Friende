@@ -9,7 +9,7 @@ from markdownify import markdownify as md
 p = 'data/medical/lookup/Diseases.txt'
 disease_names = [i.strip() for i in open(p, 'r', encoding='UTF-8').readlines()]
 # default neo4j account should be user="neo4j", password="neo4j"
-graph = Graph(host="127.0.0.1", http_port=7474, user="youruser", password="yourpassword")
+graph = Graph(host="127.0.0.1", http_port=7474, user="neo4j", password="myneo")
 
 
 def retrieve_disease_name(name):
