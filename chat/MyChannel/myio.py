@@ -1,5 +1,6 @@
 import logging
 import uuid
+import time
 
 from sanic import response
 from sanic.request import Request
@@ -9,6 +10,8 @@ from typing import Optional, Text, Any, List, Dict, Iterable
 from rasa.core.channels.socketio import SocketBlueprint, SocketIOOutput
 from rasa.core.channels.channel import InputChannel, OutputChannel
 from rasa.core.channels.channel import UserMessage
+from . import MyUtils
+
 
 logger = logging.getLogger(__name__)
 
@@ -39,12 +42,14 @@ class MySocketIOInput(InputChannel):
         session_persistence: bool = False,
         socketio_path: Optional[Text] = "/mysocket.io",
     ):
-        print("this is pysocketio in")
+        logger.debug("This is PY's custom Websocket InputChannel.")
         self.bot_message_evt = bot_message_evt
         self.session_persistence = session_persistence
         self.user_message_evt = user_message_evt
         self.namespace = namespace
         self.socketio_path = socketio_path
+        self.remote_addr: Text = "unknown"
+
 
     def blueprint(self, on_new_message):
         sio = AsyncServer(async_mode="sanic", cors_allowed_origins='*')
@@ -58,10 +63,15 @@ class MySocketIOInput(InputChannel):
 
         @sio.on("connect", namespace=self.namespace)
         async def connect(sid, environ):
-            logger.debug("User {} connected to socketIO endpoint.".format(sid))
+            ip = environ['REMOTE_ADDR'] or environ['HTTP_X_FORWARDED_FOR']
+            self.remote_addr = ip
+            self.c = MyUtils.get_record_db_cursor()
+            logger.debug("User {} (from {}) connected to socketIO endpoint.".format(sid, ip))
 
         @sio.on("disconnect", namespace=self.namespace)
         async def disconnect(sid):
+
+            self.c.connection.close()
             logger.debug("User {} disconnected from socketIO endpoint.".format(sid))
 
         @sio.on("session_request", namespace=self.namespace)
@@ -91,10 +101,19 @@ class MySocketIOInput(InputChannel):
                 sender_id = data["session_id"]
             else:
                 sender_id = sid
-            logger.debug("User msg: {} ".format(data["message"]))
             message = UserMessage(
                 data["message"], output_channel, sender_id, input_channel=self.name()
             )
+            if data["message"][0] != '/':
+                query = """insert into message_received
+                    (from_user_id, session_id, content, `when`, ip_address)
+                    values (%s, %s, %s, %s, %s)"""
+                self.c.execute(query, (data["customData"]["from_user_id"],
+                                       data["session_id"],
+                                       data["message"],
+                                       time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                                       self.remote_addr))
+                self.c.connection.commit()
             await on_new_message(message)
 
         return socketio_webhook
