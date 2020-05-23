@@ -99,6 +99,7 @@
        rasa run --enable-api -m models/medical-final-m3/20190728-212653.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
 
 1. 前端页面位于：[ChatHTML](https://github.com/pengyou200902/ChatHTML)
+   如果用了我写的自定义socketio接口，请把前端中的socketPath做对应修改，默认就改成"/mysocket.io/"
 
 1. *提示*：
 
