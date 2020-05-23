@@ -5,7 +5,7 @@ import time
 from sanic import response
 from sanic.request import Request
 from socketio import AsyncServer
-from typing import Optional, Text, Any, List, Dict, Iterable
+from typing import Optional, Text, Any, List, Dict, Union
 
 from rasa.core.channels.socketio import SocketBlueprint, SocketIOOutput
 from rasa.core.channels.channel import InputChannel, OutputChannel
@@ -32,6 +32,7 @@ class MySocketIOInput(InputChannel):
             credentials.get("namespace"),
             credentials.get("session_persistence", False),
             credentials.get("socketio_path", "/mysocket.io"),
+            credentials.get("cors_allowed_origins", "*"),
         )
 
     def __init__(
@@ -41,6 +42,8 @@ class MySocketIOInput(InputChannel):
         namespace: Optional[Text] = None,
         session_persistence: bool = False,
         socketio_path: Optional[Text] = "/mysocket.io",
+        remote_addr: Text = "unknown",
+        cors_allowed_origins: Union[Text, List[Text]] = "*"
     ):
         logger.debug("This is PY's custom Websocket InputChannel.")
         self.bot_message_evt = bot_message_evt
@@ -48,11 +51,12 @@ class MySocketIOInput(InputChannel):
         self.user_message_evt = user_message_evt
         self.namespace = namespace
         self.socketio_path = socketio_path
-        self.remote_addr: Text = "unknown"
+        self.remote_addr = remote_addr
+        self.cors_allowed_origins = cors_allowed_origins
 
 
     def blueprint(self, on_new_message):
-        sio = AsyncServer(async_mode="sanic", cors_allowed_origins='*')
+        sio = AsyncServer(async_mode="sanic", cors_allowed_origins=self.cors_allowed_origins)
         socketio_webhook = SocketBlueprint(
             sio, self.socketio_path, "socketio_webhook", __name__
         )
