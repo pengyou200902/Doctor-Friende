@@ -155,7 +155,7 @@ terminaltables==3.1.0
 tqdm==4.31.1
 Tubes==0.2.0
 twilio==6.26.3
-Twisted==19.2.1
+Twisted==20.3.0
 typeguard==2.7.1
 typing==3.7.4
 typing-extensions==3.7.4
