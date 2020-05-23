@@ -130,7 +130,7 @@
 - ~~写report~~
 
 ## Change Log
-- #### 2020/05/20 Update
+- #### 2020/05/20 Update Rasa to 1.2.9
     - 在endpoints.yml中使用了Rasa的新特性[Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/)，
     这个配置将会自动把Tracker存入MySQL中叫rasa的数据库（见endpoints.yml），
     虽然有官方的这个存储Tracker的方式，但是我也加入了一个自定义存储消息记录的功能，见下方
