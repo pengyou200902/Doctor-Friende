@@ -49,7 +49,7 @@ h2==3.2.0
 h5py==2.9.0
 hpack==3.0.0
 hstspreload==2020.4.24
-httplib2==0.17.3
+httplib2==0.18.0
 httptools==0.0.13
 httpx==0.9.3
 humanfriendly==4.18
