@@ -1,4 +1,5 @@
 ## Rasa==1.2.9(for other versions please check the branches)
+## [English ReadMe](./en-README.md)
 ## [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
 - 视频中的demo演示网址用的上海服务器，低配，加载速度慢，各位轻虐~~ >.<
 
@@ -10,7 +11,9 @@
 ![image](img/demo-2.gif)
 
 ## 说明
-- 本程序实现的是基于中文的医疗知识图谱的问答机器人MedicalKBQA，是基于[rasa-1.2.9](https://rasa.com/)版本及其支持的外部组件实现的，并使用了图数据库neo4j构建知识图谱。
+- 本程序实现的是基于中文的医疗知识图谱的问答机器人MedicalKBQA，
+是基于[Rasa-1.2.9](https://rasa.com/)版本及其支持的外部组件实现的，
+并使用了图数据库[Neo4j](https://neo4j.com/)构建知识图谱。
 
 - 会话管理使用的是rasa-core，rasa的pipeline配置如下：
         
