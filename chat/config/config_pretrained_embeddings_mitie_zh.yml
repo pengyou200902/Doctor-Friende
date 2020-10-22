@@ -5,7 +5,7 @@ policies:
     epochs: 120
     featurizer:
       - name: MaxHistoryTrackerFeaturizer
-        batch_size: [16, 32]
+        # batch_size: [16, 32]
         max_history: 5
         state_featurizer:
           - name: BinarySingleStateFeaturizer

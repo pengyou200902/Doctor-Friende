@@ -1,3 +1,7 @@
+session_config:
+  session_expiration_time: 60  # value in minutes, 0 means infinitely long
+  carry_over_slots_to_new_session: true  # set to false to forget slots between sessions
+
 slots:
   disease:
     type: text
@@ -41,7 +45,7 @@ entities:
 - drug
 - food
 
-templates:
+responses:
   utter_first:
     - text: "您好，我是您的医疗助手Friende，我是个机器人，请问有什么可以帮您？"
   utter_greet:
