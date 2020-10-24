@@ -1,7 +1,28 @@
-## Rasa==1.2.9(for other versions please check the branches)
+# Contents
+
+- [Rasa==1.7.4(for other versions please check the branches)](#rasa--174-for-other-versions-please-check-the-branches-)
+- [[Chinese ReadMe](./README.md)](#-chinese-readme---readmemd-)
+- [[Demo-Video-Here](https://www.bilibili.com/video/av61715811/)](#-demo-video-here--https---wwwbilibilicom-video-av61715811--)
+- [DEMO-GIF](#demo-gif)
+- [Description](#description)
+- [Environment (python ≈ 3.7.9)](#environment--python---379-)
+- [Import data into Neo4j](#import-data-into-neo4j)
+- [Train a Rasa model](#train-a-rasa-model)
+- [Test the model with Rasa Shell](#test-the-model-with-rasa-shell)
+- [Run this bot as a service](#run-this-bot-as-a-service)
+- [Reference](#reference)
+- [Change Log](#change-log)
+    + [2020/10/24 Update Rasa to 1.7.4](#2020-10-24-update-rasa-to-174)
+    + [2020/05/20 Update Rasa to 1.2.9](#2020-05-20-update-rasa-to-129)
+
+
+## Rasa==1.7.4(for other versions please check the branches)
+
 ## [Chinese ReadMe](./README.md)
+
 ## [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
-- The demo server is of low configuration
+- The demo server maybe slow due to low configuration
+
 
 ## DEMO-GIF
 - 2020/05/20 The new version of the chatbox has a different color.  
@@ -10,8 +31,9 @@
 
 ![image](img/demo-2.gif)
 
+
 ## Description
-- This program is a QABot based on medical knowledge graph and [Rasa-1.2.9](https://rasa.com/).
+- This program is a QABot based on medical knowledge graph and [Rasa-1.7.4](https://rasa.com/).
 [Neo4j](https://neo4j.com/) is used for the storage of medical knowledge graph. 
 
 - The conversation management engine is rasa-core. 
@@ -30,9 +52,8 @@ The configuration of rasa pipeline is as follows:
 
 - *Notice*: Rasa NLU and Rasa Core have been merged into Rasa.
 
-- Create your own Rasa Train Dataset with [Chatito](https://rodrigopivi.github.io/Chatito/)
 
-## Environment (python ≈ 3.6.8)
+## Environment (python ≈ 3.7.9)
 1. Download the ZIP file or use "git clone" to get this project.
 
 2. cd Doctor-Friende，and don't forget to "conda activate" your environment. 
@@ -49,6 +70,7 @@ The configuration of rasa pipeline is as follows:
           pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
     
     - If you have a proxy, you can add --proxy=ip:port at the end of the command above.
+
 
 ## Import data into Neo4j
 - Prerequisite: You already have a Neo4j graph to connect to.
@@ -80,7 +102,16 @@ If you want to run the spider, just run SpiderMain.py.
 | Symptom | 5,936 |  角弓反张\n视网膜Roth斑|  
 | Total | 13,635 | / |  
 
-## Run this bot
+
+## Train a Rasa model
+1. Create your own Rasa Train Dataset with [Chatito](https://rodrigopivi.github.io/Chatito/)
+
+1. To the training, open up a terminal and "cd chat", then
+
+        rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalChangeStoryAug --domain config/domains.yml --augmentation 100 -vv
+
+
+## Test the model with Rasa Shell
 1. Edit the "tracker_store" field in endpoints.yml, change the database information into yours.
 (Either a new DB or an existing one，Rasa will create a table named "events"). Check
 [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls)
@@ -104,16 +135,21 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
 
        rasa run actions --actions MyActions.actions --cors "*" -vv  
 
-1. run rasa server in another one: 
+
+## Run this bot as a service
+1. Do first six steps mentioned above.
+
+1. run rasa server in another terminal/cmd: 
 
        rasa run --enable-api -m models/medical-final-m3/20190728-212653.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
 
-1. Frontend: [ChatHTML](https://github.com/pengyou200902/ChatHTML)
+1. Frontend Webpage: [ChatHTML](https://github.com/pengyou200902/ChatHTML)
    If you use the customized socketio, change socketPath in the html to "/mysocket.io/".
 
 1. *Tips*: 
 
-    - You can use "nohup" command for background running. 
+    - On a server, you can try "nohup" command for background running. 
+
 
 ## Reference
 - [QABasedOnMedicalKnowledgeGraph](https://github.com/liuhuanyong/QASystemOnMedicalKG)  
@@ -134,7 +170,18 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
   
 - [rasa-forum](https://forum.rasa.com/)
 
+
 ## Change Log
+- #### 2020/10/24 Update Rasa to 1.7.4
+    - Python version is changed to 3.7.9.
+    - Use newly trained model only.
+    - Add "session_config" in domains.yml to meet Rasa's requirement.
+    - Edit line 91 in chat/data/medical/stories.md to "action_first".
+    It was "utter_greet" originally, which would run "utter_greet" according
+    to line 91 in chat/data/medical/stories.md, instead of "action_first". 
+    This happens in Rasa>=1.3.0. 
+
+
 - #### 2020/05/20 Update Rasa to 1.2.9
     - Introduce [Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/) into endpoints.yml, 
     this enables auto storage of Tracker into your MySQL DB.
