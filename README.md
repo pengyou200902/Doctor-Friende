@@ -1,26 +1,6 @@
-# 目录
-  * [Rasa==1.7.4(其它Rasa版本请切换branch)](#Rasa==1.7.4(其它Rasa版本请切换branch))
-  * [English ReadMe](./en-README.md)
-  * [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
-  * [GIF动图展示](#GIF动图展示)
-  * [说明](#说明)
-  * [配置环境（python ≈ 3.7.9）](#配置环境)
-  * [数据导入neo4j](#数据导入neo4j)
-  * [训练Rasa模型](#训练Rasa模型)
-  * [Shell方式测试模型](#Shell方式测试模型)
-  * [服务形式运行bot](#服务形式运行bot)
-  * [参考](#参考)
-  * [更新记录](#更新记录)
-      - [2020/10/24 更新 Rasa 到 1.7.4](#2020/10/24)
-      - [2020/05/20 更新 Rasa 到 1.2.9](#2020/05/20)
-  * [如有问题可以issue](#如有问题可以issue)
+### 因支持度不佳，中文Readme没有目录
 
-<small><i>
-    <a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a>
-</i></small>
-
-
-## Rasa==1.7.4(其它Rasa版本请切换branch)
+## 此处为Rasa==1.7.4(其它Rasa版本请切换branch)
 
 ## [English ReadMe](./en-README.md)
 
@@ -42,17 +22,18 @@
 并使用了图数据库[Neo4j](https://neo4j.com/)构建知识图谱。
 
 - 会话管理使用的是rasa-core，rasa的pipeline配置如下：
-        
-      pipeline:
-      - name: "MitieNLP"
-      model: "data/total_word_feature_extractor_zh.dat"
-      - name: "JiebaTokenizer"
-      dictionary_path: "jieba_userdict"
-      - name: "MitieEntityExtractor"
-      - name: "EntitySynonymMapper"
-      - name: "RegexFeaturizer"
-      - name: "MitieFeaturizer"
-      - name: "SklearnIntentClassifier"
+    ```yaml
+    pipeline:
+    - name: "MitieNLP"
+    model: "data/total_word_feature_extractor_zh.dat"
+    - name: "JiebaTokenizer"
+    dictionary_path: "jieba_userdict"
+    - name: "MitieEntityExtractor"
+    - name: "EntitySynonymMapper"
+    - name: "RegexFeaturizer"
+    - name: "MitieFeaturizer"
+    - name: "SklearnIntentClassifier"
+    ```
 
 - *注意*： rasa-nlu和rasa-core已经合并成rasa
 
@@ -80,13 +61,13 @@
 ## 数据导入neo4j
 - 前提是已经有了可以连接的neo4j graph
 
-- 解压MedicalSpider/data/data.tar.gz，直接解压到MedicalSpider/data下，不要新建文件夹，则medical.json是所有数据的汇总，
+- 解压```MedicalSpider/data/data.tar.gz```，直接解压到```MedicalSpider/data```下，不要新建文件夹，则medical.json是所有数据的汇总，
 将会被导入到你的知识图谱中
 
-- 修改MedicalSpider.process_data下的create_graph.py，把neo4j数据库的链接信息改成你自己的，然后运行该文件
+- 修改```MedicalSpider.process_data```下的```create_graph.py```，把neo4j数据库的链接信息改成你自己的，然后运行该文件
 （为了防止路径问题，建议使用pycharm打开本项目后运行）
 
-- *关于爬虫*：爬虫实现是使用了[scrapy](https://scrapy.org/)库，若想运行，可以在Doctor-Friende目录下运行SpiderMain.py
+- *关于爬虫*：爬虫实现是使用了[scrapy](https://scrapy.org)库，若想运行，可以在Doctor-Friende目录下运行```SpiderMain.py```
 
 - 整体规模：
     - 13,635 nodes (5 labels)
@@ -115,19 +96,19 @@
     ```
 
 ## Shell方式测试模型
-1. 修改endpoints.yml中的tracker_store字段，将数据库连接信息换成你自己的（现成的db或新建db皆可，
-我新建了一个db，Rasa会生成一个名为events的表），dialect字段是用了
+1. 修改```endpoints.yml```中的```tracker_store```字段，将数据库连接信息换成你自己的（现成的db或新建db皆可，
+我新建了一个db，Rasa会生成一个名为```events```的表），```dialect```字段是用了
 [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls)
 里的，这个链接是Rasa官方文档在[Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/)
 给出的，详情参考官方文档
 
-1. 若要自己定制消息记录方式，请修改MyChannel/MyUtils.py中数据库连接信息，并确保你的MySQL数据库中
-有message_recieved表，当然你可以取别的名字，记得在myio.py的handle_message函数里把对应代码改掉
+1. 若要自己定制消息记录方式，请修改```MyChannel/MyUtils.py```中数据库连接信息，并确保你的MySQL数据库中
+有```message_recieved```表，当然你可以取别的名字，记得在```myio.py```的```handle_message```函数里把对应代码改掉
 
-1. 下载用于mitie的模型文件放到chat/data文件夹下，[百度网盘](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg)，密码：p4vx，
+1. 下载用于mitie的模型文件放到```chat/data```文件夹下，[百度网盘](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg)，密码：p4vx，
 或者[Mega云盘](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
 
-1. chat/MyActions下的actions.py中同样需要先把neo4j数据库的链接信息改成你自己的
+1. ```chat/MyActions```下的```actions.py```中同样需要先把neo4j数据库的链接信息改成你自己的
 
 1. 打开2个终端，都cd到chat目录下，conda记得activate环境  
 
@@ -150,11 +131,11 @@
     ```
    
 1. 前端页面位于：[ChatHTML](https://github.com/pengyou200902/ChatHTML)
-   如果用了我写的自定义socketio接口，请把前端中的socketPath做对应修改，默认就改成"/mysocket.io/"
+   如果用了我写的自定义socketio接口，请把前端中的socketPath做对应修改，默认就改成```/mysocket.io/```
 
 1. *提示*：
 
-    - 部署在服务器推荐使用nohup等类似的方式在后台运行 ，并将控制台输出指向指定的文件。 
+    - 部署在服务器推荐使用```nohup```等类似的方式在后台运行 ，并将控制台输出指向指定的文件。 
 
 
 ## 参考
@@ -180,24 +161,27 @@
 ## 更新记录
 - #### 2020/10/24 更新 Rasa 到 1.7.4
     - Python版本换到了3.7.9
+    
     - 必须用新的model，旧的无法使用了
+    
     - 在domains.yml中添加了session_config，这是Rasa要求的
-    - chat/data/medical/stories.md中90行first对应的action改为action_first，
-    原先写的是utter_greet，这会导致action_first不执行，直接执行utter_greet，这是Rasa1.3.0
+    
+    - ```chat/data/medical/stories.md```中90行first对应的```action```改为```action_first```，
+    原先写的是```utter_greet```，这会导致```action_first```不执行，直接执行```utter_greet```，这是Rasa1.3.0
     开始会发生的问题
 
 - #### 2020/05/20 更新 Rasa 到 1.2.9
-    - 在endpoints.yml中使用了Rasa的新特性[Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/)，
-    这个配置将会自动把Tracker存入MySQL中叫rasa的数据库（见endpoints.yml），
+    - 在```endpoints.yml```中使用了Rasa的新特性[Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/)，
+    这个配置将会自动把Tracker存入MySQL中叫rasa的数据库（见```endpoints.yml```），
     虽然有官方的这个存储Tracker的方式，但是我也加入了一个自定义存储消息记录的功能，见下方
     
-    - 在chat/MyChannel里更新了myio.py和MyUtils.py，myio.py中自定义了一个socket接口以便定制存储消息记录于MySQL，
-    存储的字段在myio.py中可以看到，在handle_message函数中，这个自定义的socket接口是
-    以rasa.core.channels.socketio.SocketIOInput这个class为模版修改的
+    - 在```chat/MyChannel```里更新了```myio.py```和```MyUtils.py```，```myio.py```中自定义了一个socket接口以便定制存储消息记录于MySQL，
+    存储的字段在```myio.py```中可以看到，在```handle_message```函数中，这个自定义的socket接口是
+    以```rasa.core.channels.socketio.SocketIOInput```这个class为模版修改的
     
-    - MyUtils.py中主要提供了数据库连接的信息，用到的mysqlclient依赖库可能安装会有困难，大家注意
+    - ```MyUtils.py```中主要提供了数据库连接的信息，用到的mysqlclient依赖库可能安装会有困难，大家注意
     
-    - 修改了credentials.yml，加入了使用上述自定义socketio的配置
+    - 修改了```credentials.yml```，加入了使用上述自定义socketio的配置
     
     - 演示服务器在4月1日出了点问题，已修复，顺便更新了聊天窗依赖的js，聊天窗颜色略有不同
 
