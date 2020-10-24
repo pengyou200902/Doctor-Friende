@@ -1,6 +1,6 @@
 # Contents
 
-- [Rasa==1.7.4(for other versions please check the branches)](#rasa--174-for-other-versions-please-check-the-branches-)
+- [Rasa==1.7.4(for other versions please check the branches)](#Rasa==1.7.4)
 - [[Chinese ReadMe](./README.md)](#-chinese-readme---readmemd-)
 - [[Demo-Video-Here](https://www.bilibili.com/video/av61715811/)](#-demo-video-here--https---wwwbilibilicom-video-av61715811--)
 - [DEMO-GIF](#demo-gif)
@@ -59,16 +59,18 @@ The configuration of rasa pipeline is as follows:
 2. cd Doctor-Friende，and don't forget to "conda activate" your environment. 
 
 2. Use this command to install the required libraries and tools. 
-
-       pip install -r requirements.txt
-
+    ```shell
+   pip install -r requirements.txt
+    ```
+   
 3. *Tips*: 
 
     - If you are in China and suffer from slow network, you can use pip mirrors to accelerate.
     This command is for temporary use: 
-    
-          pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
-    
+        ```shell
+        pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+        ```
+   
     - If you have a proxy, you can add --proxy=ip:port at the end of the command above.
 
 
@@ -132,17 +134,18 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
 (Don't forget to "conda activate" your environment.) 
 
 1. Run rasa action server in one terminal: 
-
-       rasa run actions --actions MyActions.actions --cors "*" -vv  
-
+    ```shell
+   rasa run actions --actions MyActions.actions --cors "*" -vv  
+    ```
 
 ## Run this bot as a service
 1. Do first six steps mentioned above.
 
 1. run rasa server in another terminal/cmd: 
-
-       rasa run --enable-api -m models/medical-final-m3/20190728-212653.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
-
+    ```shell
+   rasa run --enable-api -m models/medical-final-m3/20190728-212653.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
+    ```
+   
 1. Frontend Webpage: [ChatHTML](https://github.com/pengyou200902/ChatHTML)
    If you use the customized socketio, change socketPath in the html to "/mysocket.io/".
 

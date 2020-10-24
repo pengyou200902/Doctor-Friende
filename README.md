@@ -1,20 +1,19 @@
 # 目录
-
-  * [Rasa==1.7.4(其它Rasa版本请切换branch)](#rasa--174---rasa-----branch-)
-  * [[English ReadMe](./en-README.md)](#-english-readme---en-readmemd-)
-  * [[Demo-Video-Here](https://www.bilibili.com/video/av61715811/)](#-demo-video-here--https---wwwbilibilicom-video-av61715811--)
-  * [GIF动图展示](#gif----)
-  * [说明](#--)
-  * [配置环境（python ≈ 3.7.9）](#-----python---379-)
-  * [数据导入neo4j](#----neo4j)
-  * [训练Rasa模型](#--rasa--)
-  * [Shell方式测试模型](#shell------)
-  * [服务形式运行bot](#------bot)
-  * [参考](#--)
-  * [更新记录](#----)
-      - [2020/10/24 更新 Rasa 到 1.7.4](#2020-10-24----rasa---174)
-      - [2020/05/20 更新 Rasa 到 1.2.9](#2020-05-20----rasa---129)
-  * [如有问题可以issue](#------issue)
+  * [Rasa==1.7.4(其它Rasa版本请切换branch)](#Rasa==1.7.4(其它Rasa版本请切换branch))
+  * [English ReadMe](./en-README.md)
+  * [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
+  * [GIF动图展示](#GIF动图展示)
+  * [说明](#说明)
+  * [配置环境（python ≈ 3.7.9）](#配置环境)
+  * [数据导入neo4j](#数据导入neo4j)
+  * [训练Rasa模型](#训练Rasa模型)
+  * [Shell方式测试模型](#Shell方式测试模型)
+  * [服务形式运行bot](#服务形式运行bot)
+  * [参考](#参考)
+  * [更新记录](#更新记录)
+      - [2020/10/24 更新 Rasa 到 1.7.4](#2020/10/24)
+      - [2020/05/20 更新 Rasa 到 1.2.9](#2020/05/20)
+  * [如有问题可以issue](#如有问题可以issue)
 
 <small><i>
     <a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a>
@@ -64,15 +63,17 @@
 2. 进入Doctor-Friende目录，conda记得activate环境
 
 2. 然后在命令行使用命令安装依赖
-
-       pip install -r requirements.txt
-
+    ```shell
+   pip install -r requirements.txt
+    ```
+   
 3. *提示*：
 
     - 国内推荐使用镜像加速（此命令是临时使用镜像，并非全局都用），比如：
-    
-          pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
-    
+        ```shell
+        pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+        ```
+   
     - 如果你有代理，可以在pip install命令后加上 --proxy=地址:端口
 
 
@@ -106,12 +107,12 @@
 
 
 ## 训练Rasa模型
-1.Rasa训练数据集的构造：使用到了[Chatito工具](https://rodrigopivi.github.io/Chatito/)
+1. Rasa训练数据集的构造：使用到了[Chatito工具](https://rodrigopivi.github.io/Chatito/)
 
-1.训练命令举例: 开启terminal/cmd进入chat目录，然后输入命令，命令含义参照Rasa文档
-
+1. 训练命令举例: 开启terminal/cmd进入chat目录，然后输入命令，命令含义参照Rasa文档
+    ```shell
     rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalChangeStoryAug --domain config/domains.yml --augmentation 100 -vv
-
+    ```
 
 ## Shell方式测试模型
 1. 修改endpoints.yml中的tracker_store字段，将数据库连接信息换成你自己的（现成的db或新建db皆可，
@@ -131,21 +132,23 @@
 1. 打开2个终端，都cd到chat目录下，conda记得activate环境  
 
 1. 一个终端（启动Action Server）
-
-       rasa run actions --actions MyActions.actions --cors "*" -vv  
-
+    ```shell
+   rasa run actions --actions MyActions.actions --cors "*" -vv  
+    ```
+   
 1. 另一个终端（Rasa Shell）
-
-       rasa shell -m models/medicalChangeStoryAug/20201024-203042.tar.gz --endpoints config/endpoints.yml -vv
-
+    ```shell
+   rasa shell -m models/medicalChangeStoryAug/20201024-203042.tar.gz --endpoints config/endpoints.yml -vv
+    ```
 
 ## 服务形式运行bot
 1. 前6步参照上方
 
 1. 另一个终端（启动NLU & Core Server）
-
-       rasa run --enable-api -m models/medical-final-m3/20201024-203042.tar --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
-
+    ```shell
+   rasa run --enable-api -m models/medical-final-m3/20201024-203042.tar --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
+    ```
+   
 1. 前端页面位于：[ChatHTML](https://github.com/pengyou200902/ChatHTML)
    如果用了我写的自定义socketio接口，请把前端中的socketPath做对应修改，默认就改成"/mysocket.io/"
 
