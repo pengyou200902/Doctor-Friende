@@ -1,5 +1,6 @@
 import re
 from typing import Text, Dict, Any
+
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from py2neo import Graph
@@ -48,8 +49,11 @@ class ActionFirst(Action):
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
-        dispatcher.utter_template("utter_first", tracker)
+        # dispatcher.utter_template("utter_first", tracker)
+        # print('ActionFirst'*10)
+        dispatcher.utter_message(template="utter_first")
         # dispatcher.utter_template("utter_howcanhelp", tracker)
+        # print('dispatcher.utter_message')
         dispatcher.utter_message(md("您可以这样向我提问: <br/>头痛怎么办<br/>\
                               什么人容易头痛<br/>\
                               头痛吃什么药<br/>\
@@ -71,7 +75,8 @@ class ActionDonKnow(Action):
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
-        dispatcher.utter_template("utter_donknow", tracker)
+        # dispatcher.utter_template("utter_donknow", tracker)
+        dispatcher.utter_message(template="utter_donknow")
         # dispatcher.utter_template("utter_howcanhelp", tracker)
         dispatcher.utter_message(md("您可以这样向我提问: <br/>头痛怎么办<br/>\
                                       什么人容易头痛<br/>\
