@@ -5,7 +5,6 @@ policies:
     epochs: 120
     featurizer:
       - name: MaxHistoryTrackerFeaturizer
-        # batch_size: [16, 32]
         max_history: 5
         state_featurizer:
           - name: BinarySingleStateFeaturizer
@@ -13,7 +12,7 @@ policies:
     max_history: 5
   - name: "rasa.core.policies.mapping_policy.MappingPolicy"
   - name: "rasa.core.policies.fallback.FallbackPolicy"
-    nlu_threshold: 0.4
+    nlu_threshold: 0.6
     core_threshold: 0.3
     fallback_action_name: 'action_donknow'
 
