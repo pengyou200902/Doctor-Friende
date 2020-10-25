@@ -139,12 +139,17 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
    rasa run actions --actions MyActions.actions --cors "*" -vv  
     ```
 
+1. run rasa shell in another terminal/cmd: 
+    ```shell
+    rasa shell -m models/medicalChangeStoryAug/20201025-130215.tar.gz --endpoints config/endpoints.yml -vv
+    ```
+
 ## Run this bot as a service
 1. Do first six steps mentioned above.
 
 1. run rasa server in another terminal/cmd: 
     ```shell
-   rasa run --enable-api -m models/medical-final-m3/20190728-212653.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
+   rasa run --enable-api -m models/medical-final-m3/20201025-130215.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
     ```
    
 1. Frontend Webpage: [ChatHTML](https://github.com/pengyou200902/ChatHTML)

@@ -119,7 +119,7 @@
    
 1. 另一个终端（Rasa Shell）
     ```shell
-   rasa shell -m models/medicalChangeStoryAug/20201024-203042.tar.gz --endpoints config/endpoints.yml -vv
+   rasa shell -m models/medicalChangeStoryAug/20201025-130215.tar.gz --endpoints config/endpoints.yml -vv
     ```
 
 ## 服务形式运行bot
@@ -127,7 +127,7 @@
 
 1. 另一个终端（启动NLU & Core Server）
     ```shell
-   rasa run --enable-api -m models/medical-final-m3/20201024-203042.tar --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
+   rasa run --enable-api -m models/medical-final-m3/20201025-130215.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
     ```
    
 1. 前端页面位于：[ChatHTML](https://github.com/pengyou200902/ChatHTML)
