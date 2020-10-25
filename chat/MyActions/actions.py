@@ -1,15 +1,25 @@
+import sys
+import logging
 import re
 from typing import Text, Dict, Any
+
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from py2neo import Graph
 from markdownify import markdownify as md
 
+logger = logging.getLogger(__name__)
 
 p = 'data/medical/lookup/Diseases.txt'
 disease_names = [i.strip() for i in open(p, 'r', encoding='UTF-8').readlines()]
 # default neo4j account should be user="neo4j", password="neo4j"
-graph = Graph(host="127.0.0.1", http_port=7474, user="neo4j", password="myneo")
+try:
+    graph = Graph(host="127.0.0.1", http_port=7474, user="neo4j", password="myneo")
+except Exception as e:
+    logger.error('Neo4j connection error: {}, check your Neo4j'.format(e))
+    sys.exit(-1)
+else:
+    logger.debug('Neo4j Database connected successfully.')
 
 
 def retrieve_disease_name(name):
@@ -48,8 +58,11 @@ class ActionFirst(Action):
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
-        dispatcher.utter_template("utter_first", tracker)
+        # dispatcher.utter_template("utter_first", tracker)
+        # print('ActionFirst'*10)
+        dispatcher.utter_message(template="utter_first")
         # dispatcher.utter_template("utter_howcanhelp", tracker)
+        # print('dispatcher.utter_message')
         dispatcher.utter_message(md("您可以这样向我提问: <br/>头痛怎么办<br/>\
                               什么人容易头痛<br/>\
                               头痛吃什么药<br/>\
@@ -71,7 +84,8 @@ class ActionDonKnow(Action):
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
-        dispatcher.utter_template("utter_donknow", tracker)
+        # dispatcher.utter_template("utter_donknow", tracker)
+        dispatcher.utter_message(template="utter_donknow")
         # dispatcher.utter_template("utter_howcanhelp", tracker)
         dispatcher.utter_message(md("您可以这样向我提问: <br/>头痛怎么办<br/>\
                                       什么人容易头痛<br/>\

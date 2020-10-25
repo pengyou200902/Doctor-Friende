@@ -20,12 +20,10 @@ slots:
 
 
 intents:
-  - first:
-      triggers: action_first
+  - first: {triggers: action_first}
   - greet
   - bye
   - affirmative
-#  - search_disease
   - search_treat
   - search_food
   - search_symptom
@@ -39,11 +37,11 @@ intents:
   - search_disease_dept
 
 entities:
-- disease
-- symptom
-- dept
-- drug
-- food
+  - disease
+  - symptom
+  - dept
+  - drug
+  - food
 
 responses:
   utter_first:
@@ -69,22 +67,22 @@ responses:
     - text: "啊噢，我没有理解您说的话，我的理解力还需要更多的提升>_<。"
 
 actions:
-- utter_first
-- utter_donknow
-- action_first
-- action_donknow
-- action_echo
-- action_search_treat
-- action_search_food
-- action_search_symptom
-- action_search_cause
-- action_search_neopathy
-- action_search_drug
-- action_search_prevention
-- action_search_drug_func
-- action_search_disease_treat_time
-- action_search_easy_get
-- action_search_disease_dept
-- utter_greet
-- utter_howcanhelp
-- utter_goodbye
+  - utter_first
+  - utter_donknow
+  - action_first
+  - action_donknow
+  - action_echo
+  - action_search_treat
+  - action_search_food
+  - action_search_symptom
+  - action_search_cause
+  - action_search_neopathy
+  - action_search_drug
+  - action_search_prevention
+  - action_search_drug_func
+  - action_search_disease_treat_time
+  - action_search_easy_get
+  - action_search_disease_dept
+  - utter_greet
+  - utter_howcanhelp
+  - utter_goodbye

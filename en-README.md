@@ -1,7 +1,28 @@
-## Rasa==1.2.9(for other versions please check the branches)
-## [Chinese ReadMe](./README.md)
-## [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
-- The demo server is of low configuration
+# Contents
+- [Rasa==1.7.4(for other versions please check the branches)](#Rasa==1.7.4)
+- [Chinese ReadMe](./README.md)
+- [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
+- [DEMO-GIF](#demo-gif)
+- [Description](#description)
+- [Environment (python ≈ 3.7.9)](#environment)
+- [Import data into Neo4j](#import-data-into-neo4j)
+- [Train a Rasa model](#train-a-rasa-model)
+- [Test the model with Rasa Shell](#test-the-model-with-rasa-shell)
+- [Run this bot as a service](#run-this-bot-as-a-service)
+- [Reference](#reference)
+- [Change Log](#change-log)
+
+
+## Rasa Version
+- Rasa==1.7.4(for other versions please check the branches)
+
+## Chinese ReadMe
+[Chinese ReadMe](./README.md)
+    
+## Demo Video
+- [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
+- The demo server maybe slow due to low configuration
+
 
 ## DEMO-GIF
 - 2020/05/20 The new version of the chatbox has a different color.  
@@ -10,45 +31,49 @@
 
 ![image](img/demo-2.gif)
 
+
 ## Description
-- This program is a QABot based on medical knowledge graph and [Rasa-1.2.9](https://rasa.com/).
+- This program is a QABot based on medical knowledge graph and [Rasa-1.7.4](https://rasa.com/).
 [Neo4j](https://neo4j.com/) is used for the storage of medical knowledge graph. 
 
 - The conversation management engine is rasa-core. 
 The configuration of rasa pipeline is as follows: 
-        
-      pipeline:
-      - name: "MitieNLP"
-      model: "data/total_word_feature_extractor_zh.dat"
-      - name: "JiebaTokenizer"
-      dictionary_path: "jieba_userdict"
-      - name: "MitieEntityExtractor"
-      - name: "EntitySynonymMapper"
-      - name: "RegexFeaturizer"
-      - name: "MitieFeaturizer"
-      - name: "SklearnIntentClassifier"
+    ```yaml
+    pipeline:
+    - name: "MitieNLP"
+    model: "data/total_word_feature_extractor_zh.dat"
+    - name: "JiebaTokenizer"
+    dictionary_path: "jieba_userdict"
+    - name: "MitieEntityExtractor"
+    - name: "EntitySynonymMapper"
+    - name: "RegexFeaturizer"
+    - name: "MitieFeaturizer"
+    - name: "SklearnIntentClassifier"
+    ```
 
 - *Notice*: Rasa NLU and Rasa Core have been merged into Rasa.
 
-- Create your own Rasa Train Dataset with [Chatito](https://rodrigopivi.github.io/Chatito/)
 
-## Environment (python ≈ 3.6.8)
+## Environment (python ≈ 3.7.9)
 1. Download the ZIP file or use "git clone" to get this project.
 
 2. cd Doctor-Friende，and don't forget to "conda activate" your environment. 
 
 2. Use this command to install the required libraries and tools. 
-
-       pip install -r requirements.txt
-
+    ```shell
+   pip install -r requirements.txt
+    ```
+   
 3. *Tips*: 
 
     - If you are in China and suffer from slow network, you can use pip mirrors to accelerate.
     This command is for temporary use: 
-    
-          pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
-    
+        ```shell
+        pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+        ```
+   
     - If you have a proxy, you can add --proxy=ip:port at the end of the command above.
+
 
 ## Import data into Neo4j
 - Prerequisite: You already have a Neo4j graph to connect to.
@@ -80,40 +105,60 @@ If you want to run the spider, just run SpiderMain.py.
 | Symptom | 5,936 |  角弓反张\n视网膜Roth斑|  
 | Total | 13,635 | / |  
 
-## Run this bot
-1. Edit the "tracker_store" field in endpoints.yml, change the database information into yours.
-(Either a new DB or an existing one，Rasa will create a table named "events"). Check
+
+## Train a Rasa model
+1. Create your own Rasa Train Dataset with [Chatito](https://rodrigopivi.github.io/Chatito/)
+
+1. To the training, open up a terminal and "cd chat", then
+
+        rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalChangeStoryAug --domain config/domains.yml --augmentation 100 -vv
+
+
+## Test the model with Rasa Shell
+1. Edit the ```tracker_store``` field in endpoints.yml, change the database information into yours.
+(Either a new DB or an existing one，Rasa will create a table named ```events```). Check
 [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls)
-for the "dialect" field.
+for the ```dialect``` field.
 This link is provided here [Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/).
 For more information please check Rasa official doc.
 
 1. If you want to use the customized socketio, edit the DB info in MyChannel/MyUtils.py and 
-make sure you have "message_recieved" table.(Of course you change this table name. If you do so,
-you have to change this in "handle_message" function in myio.py.)
+make sure you have ```message_recieved``` table.(Of course you change this table name. If you do so,
+you have to change this in ```handle_message``` function in myio.py.)
 
 1. Download mitie model into chat/data, [BaiDu Disk](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg), pwd: p4vx，
 OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
 
-1. Edit chat/MyActions/actions.py, change the Neo4j information into yours.
+1. Edit ```chat/MyActions/actions.py```, change the Neo4j information into yours.
 
-1. Open two terminals or two cmds, both cd into the "chat" directory in project root.
-(Don't forget to "conda activate" your environment.) 
+1. Open two terminals or two cmds, both cd into the ```chat``` directory in project root.
+(Don't forget to ```conda activate``` your environment.) 
 
 1. Run rasa action server in one terminal: 
+    ```shell
+   rasa run actions --actions MyActions.actions --cors "*" -vv  
+    ```
 
-       rasa run actions --actions MyActions.actions --cors "*" -vv  
+1. run rasa shell in another terminal/cmd: 
+    ```shell
+    rasa shell -m models/medicalChangeStoryAug/20201025-130215.tar.gz --endpoints config/endpoints.yml -vv
+    ```
 
-1. run rasa server in another one: 
+## Run this bot as a service
+1. Do first six steps mentioned above.
 
-       rasa run --enable-api -m models/medical-final-m3/20190728-212653.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
-
-1. Frontend: [ChatHTML](https://github.com/pengyou200902/ChatHTML)
-   If you use the customized socketio, change socketPath in the html to "/mysocket.io/".
+1. run rasa server in another terminal/cmd: 
+    ```shell
+   rasa run --enable-api -m models/medical-final-m3/20201025-130215.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
+    ```
+   
+1. Frontend Webpage: [ChatHTML](https://github.com/pengyou200902/ChatHTML)
+   If you use the customized socketio, change socketPath in the html to ```/mysocket.io/```.
 
 1. *Tips*: 
 
-    - You can use "nohup" command for background running. 
+    - On a server, you can try ```nohup``` command for background running. 
+
 
 ## Reference
 - [QABasedOnMedicalKnowledgeGraph](https://github.com/liuhuanyong/QASystemOnMedicalKG)  
@@ -134,19 +179,34 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
   
 - [rasa-forum](https://forum.rasa.com/)
 
+
 ## Change Log
-- #### 2020/05/20 Update Rasa to 1.2.9
+- **2020/10/24 Update Rasa to 1.7.4**
+
+    - Python version is changed to 3.7.9.
+    
+    - Use newly trained model only.
+    
+    - Add ```session_config``` in domains.yml to meet Rasa's requirement.
+    
+    - Edit line 91 in ```chat/data/medical/stories.md``` to ```action_first```.
+    It was ```utter_greet``` originally, which would run ```utter_greet``` according
+    to line 91 in chat/data/medical/stories.md, instead of ```action_first```. 
+    This happens in ```Rasa>=1.3.0```. 
+
+
+- **2020/05/20 Update Rasa to 1.2.9**
     - Introduce [Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/) into endpoints.yml, 
     this enables auto storage of Tracker into your MySQL DB.
     Though Tracker Store is an official way to store messages, I also add a customized way to
     store user message. See below.
     
-    - I updated myio.py and MyUtils.py in chat/MyChannel/. There's a customized socketio in myio.py
-    which enables you to store user messages into MySQL DB. It's based on rasa.core.channels.socketio.SocketIOInput.
-    You can store the fields you need in function "handle_message".
+    - I updated ```myio.py``` and ```MyUtils.py``` in ```chat/MyChannel/```. There's a customized socketio in 
+    ```myio.py``` which enables you to store user messages into MySQL DB. It's based on 
+    ```rasa.core.channels.socketio.SocketIOInput```. You can store the fields you need in function ```handle_message```.
     
-    - The information for connecting your MySQL DB should be provided in MyUtils.py.
+    - The information for connecting your MySQL DB should be provided in ```MyUtils.py```.
     
-    - Add some configurations to credentials.yml to enable the customized socketio. 
+    - Add some configurations to ```credentials.yml``` to enable the customized socketio. 
     
     - Fix the demo server. It crashed on April 1st.

@@ -86,9 +86,9 @@
 * bye
    - utter_goodbye
 
-## story_120
+## story_120    <!-- to be consistent with domains.yml -->
 * first
-   - utter_greet
+   - action_first
 
 ## story_12
 * greet
