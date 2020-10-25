@@ -1,3 +1,5 @@
+import sys
+import logging
 import re
 from typing import Text, Dict, Any
 
@@ -6,11 +8,18 @@ from rasa_sdk.executor import CollectingDispatcher
 from py2neo import Graph
 from markdownify import markdownify as md
 
+logger = logging.getLogger(__name__)
 
 p = 'data/medical/lookup/Diseases.txt'
 disease_names = [i.strip() for i in open(p, 'r', encoding='UTF-8').readlines()]
 # default neo4j account should be user="neo4j", password="neo4j"
-graph = Graph(host="127.0.0.1", http_port=7474, user="neo4j", password="myneo")
+try:
+    graph = Graph(host="127.0.0.1", http_port=7474, user="neo4j", password="myneo")
+except Exception as e:
+    logger.error('Neo4j connection error: {}, check your Neo4j'.format(e))
+    sys.exit(-1)
+else:
+    logger.debug('Neo4j Database connected successfully.')
 
 
 def retrieve_disease_name(name):
