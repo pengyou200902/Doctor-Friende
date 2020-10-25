@@ -1,8 +1,8 @@
-### 因支持度不佳，中文Readme没有目录
-
-## 此处为Rasa==1.7.4(其它Rasa版本请切换branch)
-
 ## [English ReadMe](./en-README.md)
+- 因为支持度不佳，所以中文Readme没有目录
+
+## Rasa版本
+- 此处为Rasa==1.7.4(其它Rasa版本请切换branch)
 
 ## [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
 - 视频中的demo演示网址用的上海服务器，低配，加载速度慢，各位轻虐~~ >.<
