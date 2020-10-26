@@ -39,34 +39,34 @@
 The configuration of rasa pipeline is as follows: 
     ```yaml
     pipeline:
-  - name: HFTransformersNLP
-    # Name of the language model to use
-    model_name: "bert"
-  
-    # Pre-Trained weights to be loaded
-    model_weights: "bert-base-chinese"
-  
-    # An optional path to a specific directory to download and 
-    # cache the pre-trained model weights.
-    # The `default` cache_dir can be "C:\Users\username\.cache\torch\transformers" 
-    # OR ~/.cache/torch/transformers
-    # See https://huggingface.co/transformers/installation.html#caching-models
-    cache_dir: null
-  
-  - name: "LanguageModelTokenizer"
-    # Flag to check whether to split intents
-    intent_tokenization_flag: False
-    # Symbol on which intent should be split
-    intent_split_symbol: "_"
-    # LanguageModelFeaturizer type: Dense featurizer
-  - name: "LanguageModelFeaturizer"
-  - name: "MitieNLP"
-    model: "data/total_word_feature_extractor_zh.dat"
-  - name: "MitieEntityExtractor"
-  - name: "EntitySynonymMapper"
-  - name: "RegexFeaturizer"
-    # SklearnIntentClassifier requires dense_features for user messages
-  - name: "SklearnIntentClassifier"
+      - name: HFTransformersNLP
+        # Name of the language model to use
+        model_name: "bert"
+      
+        # Pre-Trained weights to be loaded
+        model_weights: "bert-base-chinese"
+      
+        # An optional path to a specific directory to download and 
+        # cache the pre-trained model weights.
+        # The `default` cache_dir can be "C:\Users\username\.cache\torch\transformers" 
+        # OR ~/.cache/torch/transformers
+        # See https://huggingface.co/transformers/installation.html#caching-models
+        cache_dir: null
+      
+      - name: "LanguageModelTokenizer"
+        # Flag to check whether to split intents
+        intent_tokenization_flag: False
+        # Symbol on which intent should be split
+        intent_split_symbol: "_"
+        # LanguageModelFeaturizer type: Dense featurizer
+      - name: "LanguageModelFeaturizer"
+      - name: "MitieNLP"
+        model: "data/total_word_feature_extractor_zh.dat"
+      - name: "MitieEntityExtractor"
+      - name: "EntitySynonymMapper"
+      - name: "RegexFeaturizer"
+        # SklearnIntentClassifier requires dense_features for user messages
+      - name: "SklearnIntentClassifier"
     ```
 
 - ***Notice***: Rasa NLU and Rasa Core have been merged into Rasa.
