@@ -1,21 +1,6 @@
 ## [English ReadMe](/en-README.md)
 
 
-## 目录
-- [Rasa版本](#Rasa版本)
-- [Demo-Video-Here](#演示视频)
-- [GIF动图展示](#GIF动图展示)
-- [说明](#说明)
-- [配置环境](#配置环境)
-- [数据导入neo4j](#数据导入neo4j)
-- [训练Rasa模型](#训练Rasa模型)
-- [Shell方式测试模型](#Shell方式测试模型)
-- [服务形式运行bot](#服务形式运行bot)
-- [参考](#参考)
-- [更新记录](#更新记录)
-- [如有问题可以issue](#如有问题可以issue)
-
-
 ## Rasa版本
 - 此处为***Rasa==2.0.x***(其它Rasa版本请切换branch)
 

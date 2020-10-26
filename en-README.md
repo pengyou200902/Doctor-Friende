@@ -1,17 +1,3 @@
-# Contents
-  * [Rasa Version](#rasa-version)
-  * [Chinese ReadMe](#chinese-readme)
-  * [Demo Video](#demo-video)
-  * [DEMO-GIF](#demo-gif)
-  * [Description](#description)
-  * [Environment](#environment)
-  * [Import data into Neo4j](#import-data-into-neo4j)
-  * [Train a Rasa model](#train-a-rasa-model)
-  * [Test the model with Rasa Shell](#test-the-model-with-rasa-shell)
-  * [Run this bot as a service](#run-this-bot-as-a-service)
-  * [Reference](#reference)
-  * [Change Log](#change-log)
-
 ## Rasa Version
 - Rasa==2.0.x(for other versions please check the branches)
 
