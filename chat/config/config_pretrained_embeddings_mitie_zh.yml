@@ -18,14 +18,19 @@ policies:
 
 pipeline:
   - name: HFTransformersNLP
-#    from_pt: True
     # Name of the language model to use
     model_name: "bert"
+
     # Pre-Trained weights to be loaded
-    model_weights: "data/HFTransformersNLPCache" # "bert-base-chinese"
-    # An optional path to a specific directory to download and cache the pre-trained model weights.
-    # The `default` cache_dir is the same as https://huggingface.co/transformers/serialization.html#cache-directory .
-    cache_dir: "data/HFTransformersNLPCache" # null
+    model_weights: "bert-base-chinese"
+
+    # An optional path to a specific directory to download and
+    # cache the pre-trained model weights.
+    # The `default` cache_dir can be "C:\Users\username\.cache\torch\transformers"
+    # OR ~/.cache/torch/transformers
+    # See https://huggingface.co/transformers/installation.html#caching-models
+    cache_dir: null
+
   - name: "LanguageModelTokenizer"
     # Flag to check whether to split intents
     intent_tokenization_flag: False
