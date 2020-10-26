@@ -7,3 +7,4 @@ chat/data/total_word_feature_extractor_zh.dat
 chat/data/medical/M3-training_dataset_1564317234.json
 chat/MyActions/__pycache__/actions.cpython-37.pyc
 chat/MyActions/__pycache__/__init__.cpython-37.pyc
+/chat/data/bert_base_chinese/
