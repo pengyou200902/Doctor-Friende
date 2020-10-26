@@ -1,20 +1,22 @@
 # Contents
-- [Rasa==1.7.4(for other versions please check the branches)](#Rasa==1.7.4)
-- [Chinese ReadMe](./README.md)
-- [Demo-Video-Here](https://www.bilibili.com/video/av61715811/)
-- [DEMO-GIF](#demo-gif)
-- [Description](#description)
-- [Environment (python ≈ 3.7.9)](#environment)
-- [Import data into Neo4j](#import-data-into-neo4j)
-- [Train a Rasa model](#train-a-rasa-model)
-- [Test the model with Rasa Shell](#test-the-model-with-rasa-shell)
-- [Run this bot as a service](#run-this-bot-as-a-service)
-- [Reference](#reference)
-- [Change Log](#change-log)
-
+  * [Rasa Version](#rasa-version)
+  * [Chinese ReadMe](#chinese-readme)
+  * [Demo Video](#demo-video)
+  * [DEMO-GIF](#demo-gif)
+  * [Description](#description)
+  * [Environment](#environment)
+  * [Import data into Neo4j](#import-data-into-neo4j)
+  * [Train a Rasa model](#train-a-rasa-model)
+  * [Test the model with Rasa Shell](#test-the-model-with-rasa-shell)
+  * [Run this bot as a service](#run-this-bot-as-a-service)
+  * [Reference](#reference)
+  * [Change Log](#change-log)
+      + [2020/10/26](#2020/10/26)
+      + [2020/10/24](#2020/10/26)
+      + [2020/05/20](#2020/10/26)
 
 ## Rasa Version
-- Rasa==1.7.4(for other versions please check the branches)
+- Rasa==2.0.x(for other versions please check the branches)
 
 ## Chinese ReadMe
 [Chinese ReadMe](./README.md)
@@ -33,33 +35,54 @@
 
 
 ## Description
-- This program is a QABot based on medical knowledge graph and [Rasa-1.7.4](https://rasa.com/).
+- This program is a QABot based on medical knowledge graph and [Rasa-2.0.x](https://rasa.com/).
 [Neo4j](https://neo4j.com/) is used for the storage of medical knowledge graph. 
 
 - The conversation management engine is rasa-core. 
 The configuration of rasa pipeline is as follows: 
     ```yaml
     pipeline:
-    - name: "MitieNLP"
+  - name: HFTransformersNLP
+    # Name of the language model to use
+    model_name: "bert"
+  
+    # Pre-Trained weights to be loaded
+    model_weights: "bert-base-chinese"
+  
+    # An optional path to a specific directory to download and 
+    # cache the pre-trained model weights.
+    # The `default` cache_dir can be "C:\Users\username\.cache\torch\transformers" 
+    # OR ~/.cache/torch/transformers
+    # See https://huggingface.co/transformers/installation.html#caching-models
+    cache_dir: null
+  
+  - name: "LanguageModelTokenizer"
+    # Flag to check whether to split intents
+    intent_tokenization_flag: False
+    # Symbol on which intent should be split
+    intent_split_symbol: "_"
+    # LanguageModelFeaturizer type: Dense featurizer
+  - name: "LanguageModelFeaturizer"
+  - name: "MitieNLP"
     model: "data/total_word_feature_extractor_zh.dat"
-    - name: "JiebaTokenizer"
-    dictionary_path: "jieba_userdict"
-    - name: "MitieEntityExtractor"
-    - name: "EntitySynonymMapper"
-    - name: "RegexFeaturizer"
-    - name: "MitieFeaturizer"
-    - name: "SklearnIntentClassifier"
+  - name: "MitieEntityExtractor"
+  - name: "EntitySynonymMapper"
+  - name: "RegexFeaturizer"
+    # SklearnIntentClassifier requires dense_features for user messages
+  - name: "SklearnIntentClassifier"
     ```
 
-- *Notice*: Rasa NLU and Rasa Core have been merged into Rasa.
+- ***Notice***: Rasa NLU and Rasa Core have been merged into Rasa.
 
 
-## Environment (python ≈ 3.7.9)
+## Environment
+1. Python ≈ 3.8.5
+
 1. Download the ZIP file or use "git clone" to get this project.
 
-2. cd Doctor-Friende，and don't forget to "conda activate" your environment. 
+1. cd Doctor-Friende, and don't forget to "conda activate" your environment. 
 
-2. Use this command to install the required libraries and tools. 
+1. Use this command to install the required libraries and tools. 
     ```shell
    pip install -r requirements.txt
     ```
@@ -78,14 +101,14 @@ The configuration of rasa pipeline is as follows:
 ## Import data into Neo4j
 - Prerequisite: You already have a Neo4j graph to connect to.
 
-- Unzip MedicalSpider/data/data.tar.gz to MedicalSpider/data(Do not make a new folder). 
-Then medical.json contains all the data you need to import into Neo4j.
+- Unzip ```MedicalSpider/data/data.tar.gz``` to ```MedicalSpider/data```(Do not make a new folder). 
+Then ```medical.json``` contains all the data you need to import into Neo4j.
 
-- Edit MedicalSpider/process_data/create_graph.py, change the database information into yours.
-In order to avoid path errors, running create_graph.py through pycharm is recommended.
+- Edit ```MedicalSpider/process_data/create_graph.py```, change the database information into yours.
+In order to avoid path errors, running ```create_graph.py``` through pycharm is recommended.
 
 - *About Spider*: The web spider is based on [scrapy](https://scrapy.org/).
-If you want to run the spider, just run SpiderMain.py. 
+If you want to run the spider, just run ```SpiderMain.py```. 
 (In order to avoid path errors, running it through pycharm is recommended.)
 
 - The Knowledge Graph contains: 
@@ -109,24 +132,32 @@ If you want to run the spider, just run SpiderMain.py.
 ## Train a Rasa model
 1. Create your own Rasa Train Dataset with [Chatito](https://rodrigopivi.github.io/Chatito/)
 
-1. To the training, open up a terminal and "cd chat", then
+1. When training for the first time with this ```Pipeline```, the terminal will download the bert model.
+You can find default cache directory at [**Cache Models**](https://huggingface.co/transformers/installation.html#caching-models).
 
-        rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalChangeStoryAug --domain config/domains.yml --augmentation 100 -vv
+1. **Important: ** If errors happen when loading the bert model, try:
+    - rename ```bert-base-chinese-config.json``` to ```config.json```
+    - rename ```bert-base-chinese-vocab.txt``` to ```vocab.txt``` 
+    - rename ```bert-base-chinese-tf_model.h5``` to ```tf_model.h5```
 
+1. To the training, open up a terminal and ```cd chat```, then
+    ```shell
+    rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalRasa2 --domain config/domains.yml --num-threads 5 --augmentation 100 -vv
+    ```
 
 ## Test the model with Rasa Shell
 1. Edit the ```tracker_store``` field in endpoints.yml, change the database information into yours.
-(Either a new DB or an existing one，Rasa will create a table named ```events```). Check
+(Either a new DB or an existing one, Rasa will create a table named ```events```). Check
 [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls)
 for the ```dialect``` field.
 This link is provided here [Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/).
 For more information please check Rasa official doc.
 
-1. If you want to use the customized socketio, edit the DB info in MyChannel/MyUtils.py and 
+1. If you want to use the customized socketio, edit the DB info in ```MyChannel/MyUtils.py``` and 
 make sure you have ```message_recieved``` table.(Of course you change this table name. If you do so,
-you have to change this in ```handle_message``` function in myio.py.)
+you have to change this in ```handle_message``` function in ```myio.py```.)
 
-1. Download mitie model into chat/data, [BaiDu Disk](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg), pwd: p4vx，
+1. Download mitie model into chat/data, [BaiDu Disk](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg), pwd: p4vx, 
 OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
 
 1. Edit ```chat/MyActions/actions.py```, change the Neo4j information into yours.
@@ -141,15 +172,15 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
 
 1. run rasa shell in another terminal/cmd: 
     ```shell
-    rasa shell -m models/medicalChangeStoryAug/20201025-130215.tar.gz --endpoints config/endpoints.yml -vv
+    rasa shell -m models/medicalRasa2/20201026-112436.tar.gz --endpoints config/endpoints.yml -vv
     ```
 
 ## Run this bot as a service
-1. Do first six steps mentioned above.
+1. Do first six steps as mentioned above.
 
 1. run rasa server in another terminal/cmd: 
     ```shell
-   rasa run --enable-api -m models/medical-final-m3/20201025-130215.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
+   rasa run --enable-api -m models/medicalRasa2/20201026-112436.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
     ```
    
 1. Frontend Webpage: [ChatHTML](https://github.com/pengyou200902/ChatHTML)
@@ -181,9 +212,17 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
 
 
 ## Change Log
-- **2020/10/24 Update Rasa to 1.7.4**
+- #### 2020/10/26
+    - Update Rasa to 2.0.x, Python version 3.8.5
+    
+    - ```Pipeline``` changes a lot. Add a new component ```HFTransformersNLP```.
+    
+    - You should use the new model in ```models/medicalRasa2```.
+    
+    - Edit ```domains.yml```, change the ```type``` of ```sure``` and ```pre_disease``` into ```any```.
 
-    - Python version is changed to 3.7.9.
+- #### 2020/10/24
+    - Update Rasa to 1.7.4, Python version 3.7.9.
     
     - Use newly trained model only.
     
@@ -195,7 +234,9 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
     This happens in ```Rasa>=1.3.0```. 
 
 
-- **2020/05/20 Update Rasa to 1.2.9**
+- #### 2020/05/20
+    - Update Rasa to 1.2.9, Python version 3.6.8
+
     - Introduce [Tracker Store](https://rasa.com/docs/rasa/api/tracker-stores/) into endpoints.yml, 
     this enables auto storage of Tracker into your MySQL DB.
     Though Tracker Store is an official way to store messages, I also add a customized way to
