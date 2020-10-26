@@ -14,9 +14,9 @@ slots:
   food:
     type: text
   sure:
-    type: unfeaturized
+    type: any
   pre_disease:
-    type: unfeaturized
+    type: any
 
 
 intents:

@@ -1,15 +1,15 @@
 language: "zh"
 
 policies:
-  - name: "rasa.core.policies.keras_policy.KerasPolicy"
-    epochs: 120
+  - name: "rasa.core.policies.ted_policy.TEDPolicy"
+    epochs: 200
     featurizer:
       - name: MaxHistoryTrackerFeaturizer
-        max_history: 5
+        max_history: 4
         state_featurizer:
-          - name: BinarySingleStateFeaturizer
+          - name: LabelTokenizerSingleStateFeaturizer
   - name: "rasa.core.policies.memoization.MemoizationPolicy"
-    max_history: 5
+    max_history: 4
   - name: "rasa.core.policies.mapping_policy.MappingPolicy"
   - name: "rasa.core.policies.fallback.FallbackPolicy"
     nlu_threshold: 0.6
@@ -17,12 +17,27 @@ policies:
     fallback_action_name: 'action_donknow'
 
 pipeline:
-- name: "MitieNLP"
-  model: "data/total_word_feature_extractor_zh.dat"
-- name: "JiebaTokenizer"
-  dictionary_path: "jieba_userdict"
-- name: "MitieEntityExtractor"
-- name: "EntitySynonymMapper"
-- name: "RegexFeaturizer"
-- name: "MitieFeaturizer"
-- name: "SklearnIntentClassifier"
+  - name: HFTransformersNLP
+#    from_pt: True
+    # Name of the language model to use
+    model_name: "bert"
+    # Pre-Trained weights to be loaded
+    model_weights: "data/HFTransformersNLPCache" # "bert-base-chinese"
+    # An optional path to a specific directory to download and cache the pre-trained model weights.
+    # The `default` cache_dir is the same as https://huggingface.co/transformers/serialization.html#cache-directory .
+    cache_dir: "data/HFTransformersNLPCache" # null
+  - name: "LanguageModelTokenizer"
+    # Flag to check whether to split intents
+    intent_tokenization_flag: False
+    # Symbol on which intent should be split
+    intent_split_symbol: "_"
+    # LanguageModelFeaturizer type: Dense featurizer
+  - name: "LanguageModelFeaturizer"
+  - name: "MitieNLP"
+    model: "data/total_word_feature_extractor_zh.dat"
+  - name: "MitieEntityExtractor"
+  - name: "EntitySynonymMapper"
+  - name: "RegexFeaturizer"
+    # SklearnIntentClassifier requires dense_features for user messages
+  - name: "SklearnIntentClassifier"
+
