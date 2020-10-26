@@ -1,3 +1,18 @@
+# Contents
+  * [Rasa Version](#rasa-version)
+  * [Chinese ReadMe](#chinese-readme)
+  * [Demo Video](#demo-video)
+  * [DEMO-GIF](#demo-gif)
+  * [Description](#description)
+  * [Environment](#environment)
+  * [Import data into Neo4j](#import-data-into-neo4j)
+  * [Train a Rasa model](#train-a-rasa-model)
+  * [Test the model with Rasa Shell](#test-the-model-with-rasa-shell)
+  * [Run this bot as a service](#run-this-bot-as-a-service)
+  * [Reference](#reference)
+  * [Change Log](#change-log)
+  
+  
 ## Rasa Version
 - Rasa==2.0.x(for other versions please check the branches)
 
@@ -128,6 +143,7 @@ You can find default cache directory at [**Cache Models**](https://huggingface.c
     rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalRasa2 --domain config/domains.yml --num-threads 5 --augmentation 100 -vv
     ```
 
+
 ## Test the model with Rasa Shell
 1. Edit the ```tracker_store``` field in endpoints.yml, change the database information into yours.
 (Either a new DB or an existing one, Rasa will create a table named ```events```). Check
@@ -157,6 +173,7 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
     ```shell
     rasa shell -m models/medicalRasa2/20201026-112436.tar.gz --endpoints config/endpoints.yml -vv
     ```
+
 
 ## Run this bot as a service
 1. Do first six steps as mentioned above.
