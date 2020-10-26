@@ -11,9 +11,6 @@
   * [Run this bot as a service](#run-this-bot-as-a-service)
   * [Reference](#reference)
   * [Change Log](#change-log)
-      + [2020/10/26](#2020/10/26)
-      + [2020/10/24](#2020/10/26)
-      + [2020/05/20](#2020/10/26)
 
 ## Rasa Version
 - Rasa==2.0.x(for other versions please check the branches)
