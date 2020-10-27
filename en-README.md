@@ -80,6 +80,8 @@ The configuration of rasa pipeline is as follows:
 
 1. cd Doctor-Friende, and don't forget to "conda activate" your environment. 
 
+1. Simple instructions to install mitie, see [**Install Mitie**](https://blog.csdn.net/pengyou200902/article/details/109183361)
+
 1. Use this command to install the required libraries and tools. 
     ```shell
    pip install -r requirements.txt
