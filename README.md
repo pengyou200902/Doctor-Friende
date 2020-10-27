@@ -129,7 +129,10 @@
 ## 训练Rasa模型
 1. Rasa训练数据集的构造：使用到了 [**Chatito工具**](https://rodrigopivi.github.io/Chatito/)
 
-1. 第一次用此```Pipeline```训练时，会需要下载模型，默认目录见 [**Cache Models**](https://huggingface.co/transformers/installation.html#caching-models)
+1. 下载用于mitie的模型文件放到```chat/data```文件夹下， [**百度网盘**](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg) ，密码：p4vx，
+或者 [**Mega云盘**](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
+
+1. 第一次用此```Pipeline```训练时，输入训练命令后会自动下载模型，默认下载保存的目录见 [**Cache Models**](https://huggingface.co/transformers/installation.html#caching-models)
 
 1. **重要：** 若出现模型加载报错问题，按如下改名
     - 将 ```bert-base-chinese-config.json``` 更名为 ```config.json```
@@ -151,9 +154,6 @@
 1. 若要自己定制消息记录方式，请修改```MyChannel/MyUtils.py```中数据库连接信息，并确保你的MySQL数据库中
 有```message_recieved```表，当然你可以取别的名字，记得在```myio.py```的```handle_message```函数里把对应代码改掉
 
-1. 下载用于mitie的模型文件放到```chat/data```文件夹下， [**百度网盘**](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg) ，密码：p4vx，
-或者 [**Mega云盘**](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
-
 1. ```chat/MyActions```下的```actions.py```中同样需要先把neo4j数据库的链接信息改成你自己的
 
 1. 打开2个终端，都cd到chat目录下，conda记得activate环境  
@@ -169,7 +169,7 @@
     ```
 
 ## 服务形式运行bot
-1. 前6步参照上方
+1. 参照上方除了最后一步其他都一样
 
 1. 另一个终端（启动NLU & Core Server）
     ```shell

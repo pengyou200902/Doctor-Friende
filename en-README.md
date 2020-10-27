@@ -129,7 +129,10 @@ If you want to run the spider, just run ```SpiderMain.py```.
 ## Train a Rasa model
 1. Create your own Rasa Train Dataset with [Chatito](https://rodrigopivi.github.io/Chatito/)
 
-1. When training for the first time with this ```Pipeline```, the terminal will download the bert model.
+1. Download mitie model into chat/data, [BaiDu Disk](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg), pwd: p4vx, 
+OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
+
+1. The first time running the training command with this ```Pipeline```, the terminal will download the bert model.
 You can find default cache directory at [**Cache Models**](https://huggingface.co/transformers/installation.html#caching-models).
 
 1. **Important: ** If errors happen when loading the bert model, try:
@@ -154,9 +157,6 @@ For more information please check Rasa official doc.
 make sure you have ```message_recieved``` table.(Of course you change this table name. If you do so,
 you have to change this in ```handle_message``` function in ```myio.py```.)
 
-1. Download mitie model into chat/data, [BaiDu Disk](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg), pwd: p4vx, 
-OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
-
 1. Edit ```chat/MyActions/actions.py```, change the Neo4j information into yours.
 
 1. Open two terminals or two cmds, both cd into the ```chat``` directory in project root.
@@ -173,7 +173,7 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
     ```
 
 ## Run this bot as a service
-1. Do first six steps as mentioned above.
+1. Do first five steps as mentioned above.
 
 1. run rasa server in another terminal/cmd: 
     ```shell
