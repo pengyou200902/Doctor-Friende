@@ -109,7 +109,10 @@ If you want to run the spider, just run SpiderMain.py.
 ## Train a Rasa model
 1. Create your own Rasa Train Dataset with [Chatito](https://rodrigopivi.github.io/Chatito/)
 
-1. To the training, open up a terminal and "cd chat", then
+1. Download mitie model into chat/data, [BaiDu Disk](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg), pwd: p4vx，
+OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
+
+1. Do the training, open up a terminal and "cd chat", then
 
         rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalChangeStoryAug --domain config/domains.yml --augmentation 100 -vv
 
@@ -125,9 +128,6 @@ For more information please check Rasa official doc.
 1. If you want to use the customized socketio, edit the DB info in MyChannel/MyUtils.py and 
 make sure you have ```message_recieved``` table.(Of course you change this table name. If you do so,
 you have to change this in ```handle_message``` function in myio.py.)
-
-1. Download mitie model into chat/data, [BaiDu Disk](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg), pwd: p4vx，
-OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
 
 1. Edit ```chat/MyActions/actions.py```, change the Neo4j information into yours.
 
@@ -145,7 +145,7 @@ OR [Mega](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA
     ```
 
 ## Run this bot as a service
-1. Do first six steps mentioned above.
+1. Do first 5 steps mentioned above.
 
 1. run rasa server in another terminal/cmd: 
     ```shell

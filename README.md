@@ -90,6 +90,9 @@
 ## 训练Rasa模型
 1. Rasa训练数据集的构造：使用到了[Chatito工具](https://rodrigopivi.github.io/Chatito/)
 
+1. 下载用于mitie的模型文件放到```chat/data```文件夹下，[百度网盘](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg)，密码：p4vx，
+或者[Mega云盘](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
+
 1. 训练命令举例: 开启terminal/cmd进入chat目录，然后输入命令，命令含义参照Rasa文档
     ```shell
     rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalChangeStoryAug --domain config/domains.yml --augmentation 100 -vv
@@ -104,9 +107,6 @@
 
 1. 若要自己定制消息记录方式，请修改```MyChannel/MyUtils.py```中数据库连接信息，并确保你的MySQL数据库中
 有```message_recieved```表，当然你可以取别的名字，记得在```myio.py```的```handle_message```函数里把对应代码改掉
-
-1. 下载用于mitie的模型文件放到```chat/data```文件夹下，[百度网盘](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg)，密码：p4vx，
-或者[Mega云盘](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
 
 1. ```chat/MyActions```下的```actions.py```中同样需要先把neo4j数据库的链接信息改成你自己的
 
@@ -123,7 +123,7 @@
     ```
 
 ## 服务形式运行bot
-1. 前6步参照上方
+1. 前5步参照上方
 
 1. 另一个终端（启动NLU & Core Server）
     ```shell
