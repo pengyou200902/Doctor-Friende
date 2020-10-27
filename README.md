@@ -82,12 +82,14 @@
 
 1. 进入Doctor-Friende目录，conda记得activate环境
 
+1. 安装Mitie其实很简单，参考[安装Rasa所需的MITIE组件](https://blog.csdn.net/pengyou200902/article/details/109183361)
+
 1. 然后在命令行使用命令安装依赖
     ```shell
    pip install -r requirements.txt
     ```
    
-3. *提示*：
+1. *提示*：
 
     - 国内推荐使用镜像加速（此命令是临时使用镜像，并非全局都用），比如：
         ```shell
