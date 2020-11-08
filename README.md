@@ -42,33 +42,14 @@
 - Rasa的```Pipeline```配置如下：
     ```yaml
     pipeline:
-      - name: HFTransformersNLP
-        # Name of the language model to use
-        model_name: "bert"
-      
-        # Pre-Trained weights to be loaded
-        model_weights: "bert-base-chinese"
-      
-        # An optional path to a specific directory to download and 
-        # cache the pre-trained model weights.
-        # The `default` cache_dir can be "C:\Users\username\.cache\torch\transformers" 
-        # OR ~/.cache/torch/transformers
-        # See https://huggingface.co/transformers/installation.html#caching-models
-        cache_dir: null
-      
-      - name: "LanguageModelTokenizer"
-        # Flag to check whether to split intents
-        intent_tokenization_flag: False
-        # Symbol on which intent should be split
-        intent_split_symbol: "_"
-        # LanguageModelFeaturizer type: Dense featurizer
-      - name: "LanguageModelFeaturizer"
       - name: "MitieNLP"
         model: "data/total_word_feature_extractor_zh.dat"
+      - name: "JiebaTokenizer"
+        dictionary_path: "jieba_userdict"
       - name: "MitieEntityExtractor"
       - name: "EntitySynonymMapper"
       - name: "RegexFeaturizer"
-        # SklearnIntentClassifier requires dense_features for user messages
+      - name: "MitieFeaturizer"
       - name: "SklearnIntentClassifier"
     ```
 
@@ -129,18 +110,18 @@
 
 
 ## 训练Rasa模型
-1. Rasa训练数据集的构造：使用到了 [**Chatito工具**](https://rodrigopivi.github.io/Chatito/)
+1. Rasa训练数据集的构造：使用到了 [**Chatito工具**](https://rodrigopivi.github.io/Chatito/) 
 
 1. 下载用于mitie的模型文件放到```chat/data```文件夹下， [**百度网盘**](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg) ，密码：p4vx，
-或者 [**Mega云盘**](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
+或者 [**Mega云盘**](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA) 
 
-1. 第一次用此```Pipeline```训练时，输入训练命令后会自动下载模型，默认下载保存的目录见 [**Cache Models**](https://huggingface.co/transformers/installation.html#caching-models)
-
-1. **重要：** 若出现模型加载报错问题，按如下改名
-    - 将 ```bert-base-chinese-config.json``` 更名为 ```config.json```
-    - 将 ```bert-base-chinese-vocab.txt``` 更名为 ```vocab.txt```
-    - 将 ```bert-base-chinese-tf_model.h5``` 更名为 ```tf_model.h5```
-
+    <!--1. 第一次用此```Pipeline```训练时，输入训练命令后会自动下载模型，默认下载保存的目录见 [**Cache Models**](https://huggingface.co/transformers/installation.html#caching-models)-->
+ 
+    <!--1. **重要：** 若出现模型加载报错问题，按如下改名
+        - 将 ```bert-base-chinese-config.json``` 更名为 ```config.json```
+        - 将 ```bert-base-chinese-vocab.txt``` 更名为 ```vocab.txt```
+        - 将 ```bert-base-chinese-tf_model.h5``` 更名为 ```tf_model.h5```-->
+ 
 1. 训练命令举例: 开启terminal/cmd进入chat目录，然后输入命令，命令含义参照 [**Rasa文档**](https://rasa.com/docs/rasa/command-line-interface)
     ```shell
     rasa train -c config/config_pretrained_embeddings_mitie_zh.yml --data data/medical/M3-training_dataset_1564317234.json data/medical/stories.md --out models/medicalRasa2 --domain config/domains.yml --num-threads 5 --augmentation 100 -vv
@@ -167,7 +148,7 @@
    
 1. 另一个终端（Rasa Shell）
     ```shell
-   rasa shell -m models/medicalRasa2/20201026-112436.tar.gz --endpoints config/endpoints.yml -vv
+   rasa shell -m models/medicalRasa2/20201108-200002.tar.gz --endpoints config/endpoints.yml -vv
     ```
 
 ## 服务形式运行bot
@@ -175,7 +156,7 @@
 
 1. 另一个终端（启动NLU & Core Server）
     ```shell
-   rasa run --enable-api -m models/medicalRasa2/20201026-112436.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
+   rasa run --enable-api -m models/medicalRasa2/20201108-200002.tar.gz --port 5000 --endpoints config/endpoints.yml --credentials config/credentials.yml -vv
     ```
    
 1. 前端页面位于： [**ChatHTML**](https://github.com/pengyou200902/ChatHTML)
@@ -207,6 +188,13 @@
 
 
 ## 更新记录
+- #### 2020/11/08 修复bug
+    - 配置文件的```Pipeline```恢复成和以前相同的内容了
+    
+    - ```MyUtils.py```中```get_record_db_cursor()```里加了一句```charset="utf8"```
+    
+    - 修改了```myio.py```，请使用新版```myio.py```
+
 - #### 2020/10/26
     - 更新 Rasa 到 2.0.x
     

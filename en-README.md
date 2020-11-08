@@ -1,3 +1,5 @@
+### Please wait for update
+<!--
 # Contents
   * [Rasa Version](#rasa-version)
   * [Chinese ReadMe](#chinese-readme)
@@ -253,3 +255,4 @@ you have to change this in ```handle_message``` function in ```myio.py```.)
     - Add some configurations to ```credentials.yml``` to enable the customized socketio. 
     
     - Fix the demo server. It crashed on April 1st.
+-->
