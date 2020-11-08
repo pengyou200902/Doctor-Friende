@@ -1,15 +1,24 @@
+import logging
 import MySQLdb
 
 
+logger = logging.getLogger(__name__)
+
+
 def get_record_db_cursor():
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user="doctor-friende",
-        passwd="doctor-friende",
-        db="doctor_friende",
-    )
-    return db.cursor()
+    try:
+        db = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user="doctor-friende",
+            passwd="doctor-friende",
+            db="doctor_friende",
+            charset="utf8"
+        )
+    except Exception as e:
+        logger.error(e)
+    else:
+        return db.cursor()
 
 
 
