@@ -10,7 +10,7 @@ async-timeout==3.0.1
 attrs==20.2.0
 backcall==0.2.0
 beautifulsoup4==4.9.3
-bleach==3.2.1
+bleach==3.3.0
 blis==0.4.1
 boto3==1.15.18
 botocore==1.18.18
