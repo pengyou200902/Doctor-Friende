@@ -14,7 +14,8 @@ p = 'data/medical/lookup/Diseases.txt'
 disease_names = [i.strip() for i in open(p, 'r', encoding='UTF-8').readlines()]
 # default neo4j account should be user="neo4j", password="neo4j"
 try:
-    graph = Graph(host="127.0.0.1", http_port=7474, user="neo4j", password="myneo")
+    # graph = Graph(host="127.0.0.1", http_port=7474, user="neo4j", password="myneo")
+    graph = Graph("http://localhost:7474", auth=("neo4j", "myneo"))
 except Exception as e:
     logger.error('Neo4j connection error: {}, check your Neo4j'.format(e))
     sys.exit(-1)
