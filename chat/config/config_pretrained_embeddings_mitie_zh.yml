@@ -7,7 +7,7 @@ policies:
       - name: MaxHistoryTrackerFeaturizer
         max_history: 4
         state_featurizer:
-          - name: LabelTokenizerSingleStateFeaturizer
+          - name: SingleStateFeaturizer
   - name: "rasa.core.policies.memoization.MemoizationPolicy"
     max_history: 4
   - name: "rasa.core.policies.mapping_policy.MappingPolicy"
@@ -28,32 +28,26 @@ pipeline:
   - name: "SklearnIntentClassifier"
 
 #pipeline:
-#  - name: HFTransformersNLP
-#    # Name of the language model to use
-#    model_name: "bert"
-#
-#    # Pre-Trained weights to be loaded
-#    model_weights: "bert-base-chinese"
-#
-#    # An optional path to a specific directory to download and
-#    # cache the pre-trained model weights.
-#    # The `default` cache_dir can be "C:/Users/username/.cache/torch/transformers"
-#    # OR ~/.cache/torch/transformers
-#    # See https://huggingface.co/transformers/installation.html#caching-models
-#    cache_dir: null
-#
-#  - name: "LanguageModelTokenizer"
-#    # Flag to check whether to split intents
-#    intent_tokenization_flag: False
-#    # Symbol on which intent should be split
-#    intent_split_symbol: "_"
-#    # LanguageModelFeaturizer type: Dense featurizer
-#  - name: "LanguageModelFeaturizer"
 #  - name: "MitieNLP"
 #    model: "data/total_word_feature_extractor_zh.dat"
+#  - name: "JiebaTokenizer"
+#    dictionary_path: "jieba_userdict"
 #  - name: "MitieEntityExtractor"
 #  - name: "EntitySynonymMapper"
 #  - name: "RegexFeaturizer"
-#    # SklearnIntentClassifier requires dense_features for user messages
-#  - name: "SklearnIntentClassifier"
+#  - name: "MitieFeaturizer"
+#  - name: "DIETClassifier"
+#    entity_recognition: False
 
+#pipeline: # do not use
+#  - name: "MitieNLP"
+#    model: "data/total_word_feature_extractor_zh.dat"
+#  - name: "JiebaTokenizer"
+#    dictionary_path: "jieba_userdict"
+#  - name: "RegexFeaturizer"
+#  - name: "MitieFeaturizer"
+#  - name: "DIETClassifier"
+#    intent_classification: False
+#  - name: "EntitySynonymMapper"
+#  - name: "DIETClassifier"
+#    entity_recognition: False
