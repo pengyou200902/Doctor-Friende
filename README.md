@@ -1,3 +1,12 @@
+# 更新至 Rasa 2.6.x 中，未完成，请勿 clone 此分支
+- Rasa Version      :         2.6.2
+- Minimum Compatible Version: 2.6.0
+- Rasa SDK Version  :         2.6.0
+- Rasa X Version    :         None
+- Python Version    :         3.8.10
+- Operating System  :         macOS-11.3.1-x86_64-i386-64bit
+
+# 以下为旧内容！
 ## 目录
 - [Rasa版本](#Rasa版本)
 - [Demo-Video-Here](#演示视频)
