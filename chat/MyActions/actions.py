@@ -61,7 +61,7 @@ class ActionFirst(Action):
             domain: Dict[Text, Any]):
         # dispatcher.utter_template("utter_first", tracker)
         # print('ActionFirst'*10)
-        dispatcher.utter_message(template="utter_first")
+        dispatcher.utter_message(response="utter_first")
         # dispatcher.utter_template("utter_howcanhelp", tracker)
         # print('dispatcher.utter_message')
         dispatcher.utter_message(md("您可以这样向我提问: <br/>头痛怎么办<br/>\
@@ -86,7 +86,7 @@ class ActionDonKnow(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         # dispatcher.utter_template("utter_donknow", tracker)
-        dispatcher.utter_message(template="utter_donknow")
+        dispatcher.utter_message(response="utter_donknow")
         # dispatcher.utter_template("utter_howcanhelp", tracker)
         dispatcher.utter_message(md("您可以这样向我提问: <br/>头痛怎么办<br/>\
                                       什么人容易头痛<br/>\
