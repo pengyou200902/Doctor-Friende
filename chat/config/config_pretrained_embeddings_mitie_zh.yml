@@ -1,55 +1,48 @@
 language: "zh"
 
 policies:
-  - name: "rasa.core.policies.ted_policy.TEDPolicy"
+  - name: rasa.core.policies.ted_policy.TEDPolicy
     epochs: 200
     featurizer:
-      - name: MaxHistoryTrackerFeaturizer
-        max_history: 4
-        state_featurizer:
-          - name: SingleStateFeaturizer
-  - name: "rasa.core.policies.memoization.MemoizationPolicy"
+    - name: MaxHistoryTrackerFeaturizer
+      max_history: 4
+      state_featurizer:
+      - name: SingleStateFeaturizer
+  - name: rasa.core.policies.memoization.MemoizationPolicy
     max_history: 4
-  - name: "rasa.core.policies.mapping_policy.MappingPolicy"
-  - name: "rasa.core.policies.fallback.FallbackPolicy"
-    nlu_threshold: 0.6
-    core_threshold: 0.3
-    fallback_action_name: 'action_donknow'
+  - name: rasa.core.policies.rule_policy.RulePolicy
+    core_fallback_threshold: 0.3
+    core_fallback_action_name: action_donknow
+
 
 #pipeline:
-#  - name: "MitieNLP"
-#    model: "data/total_word_feature_extractor_zh.dat"
-#  - name: "JiebaTokenizer"
-#    dictionary_path: "jieba_userdict"
-#  - name: "MitieEntityExtractor"
-#  - name: "EntitySynonymMapper"
-#  - name: "RegexFeaturizer"
-#  - name: "MitieFeaturizer"
-#  - name: "SklearnIntentClassifier"
+#  - name: MitieNLP
+#    model: data/total_word_feature_extractor_zh.dat
+#  - name: JiebaTokenizer
+#    dictionary_path: jieba_userdict
+#  - name: MitieEntityExtractor
+#  - name: EntitySynonymMapper
+#  - name: RegexFeaturizer
+#  - name: MitieFeaturizer
+#  - name: SklearnIntentClassifier
+#  - name: FallbackClassifier
+#    threshold: 0.6
+#    ambiguity_threshold: 0.1
+
 
 pipeline:
-  - name: "MitieNLP"
-    model: "data/total_word_feature_extractor_zh.dat"
-  - name: "JiebaTokenizer"
-    dictionary_path: "jieba_userdict"
-  - name: "MitieEntityExtractor"
-  - name: "EntitySynonymMapper"
-  - name: "RegexFeaturizer"
-  - name: "MitieFeaturizer"
-  - name: "DIETClassifier"
-    entity_recognition: False
+  - name: MitieNLP
+    model: data/total_word_feature_extractor_zh.dat
+  - name: JiebaTokenizer
+    dictionary_path: jieba_userdict
+  - name: MitieEntityExtractor
+  - name: EntitySynonymMapper
+  - name: RegexFeaturizer
+  - name: MitieFeaturizer
+  - name: DIETClassifier
+    entity_recognition: false
     model_confidence: linear_norm
-    constrain_similarities: True
-
-#pipeline: # do not use
-#  - name: "MitieNLP"
-#    model: "data/total_word_feature_extractor_zh.dat"
-#  - name: "JiebaTokenizer"
-#    dictionary_path: "jieba_userdict"
-#  - name: "RegexFeaturizer"
-#  - name: "MitieFeaturizer"
-#  - name: "DIETClassifier"
-#    intent_classification: False
-#  - name: "EntitySynonymMapper"
-#  - name: "DIETClassifier"
-#    entity_recognition: False
+    constrain_similarities: true
+  - name: FallbackClassifier
+    threshold: 0.6
+    ambiguity_threshold: 0.1
