@@ -1,0 +1,10 @@
+version: "2.0"
+rules:
+- rule: Rule to map `first` intent to `action_first` (automatic conversion)
+  steps:
+  - intent: first
+  - action: action_first
+- rule: Rule to handle messages with low NLU confidence (automated conversion from 'FallbackPolicy')
+  steps:
+  - intent: nlu_fallback
+  - action: action_donknow
