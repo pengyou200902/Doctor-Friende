@@ -16,17 +16,6 @@ policies:
     core_threshold: 0.3
     fallback_action_name: 'action_donknow'
 
-pipeline:
-  - name: "MitieNLP"
-    model: "data/total_word_feature_extractor_zh.dat"
-  - name: "JiebaTokenizer"
-    dictionary_path: "jieba_userdict"
-  - name: "MitieEntityExtractor"
-  - name: "EntitySynonymMapper"
-  - name: "RegexFeaturizer"
-  - name: "MitieFeaturizer"
-  - name: "SklearnIntentClassifier"
-
 #pipeline:
 #  - name: "MitieNLP"
 #    model: "data/total_word_feature_extractor_zh.dat"
@@ -36,8 +25,21 @@ pipeline:
 #  - name: "EntitySynonymMapper"
 #  - name: "RegexFeaturizer"
 #  - name: "MitieFeaturizer"
-#  - name: "DIETClassifier"
-#    entity_recognition: False
+#  - name: "SklearnIntentClassifier"
+
+pipeline:
+  - name: "MitieNLP"
+    model: "data/total_word_feature_extractor_zh.dat"
+  - name: "JiebaTokenizer"
+    dictionary_path: "jieba_userdict"
+  - name: "MitieEntityExtractor"
+  - name: "EntitySynonymMapper"
+  - name: "RegexFeaturizer"
+  - name: "MitieFeaturizer"
+  - name: "DIETClassifier"
+    entity_recognition: False
+    model_confidence: linear_norm
+    constrain_similarities: True
 
 #pipeline: # do not use
 #  - name: "MitieNLP"
