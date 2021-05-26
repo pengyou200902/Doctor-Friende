@@ -106,7 +106,7 @@
 给出的，详情参考官方文档
 
 1. 若要自己定制消息记录方式，请修改```MyChannel/MyUtils.py```中数据库连接信息，并确保你的MySQL数据库中
-有```message_recieved```表，当然你可以取别的名字，记得在```myio.py```的```handle_message```函数里把对应代码改掉
+有```message_received```表，当然你可以取别的名字，记得在```myio.py```的```handle_message```函数里把对应代码改掉
 
 1. ```chat/MyActions```下的```actions.py```中同样需要先把neo4j数据库的链接信息改成你自己的
 
