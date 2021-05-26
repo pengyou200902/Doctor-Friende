@@ -85,7 +85,7 @@
 给出的，详情参考官方文档
 
 1. 若要自己定制消息记录方式，请修改MyChannel/MyUtils.py中数据库连接信息，并确保你的MySQL数据库中
-有message_recieved表，当然你可以取别的名字，记得在myio.py的handle_message函数里把对应代码改掉
+有message_received表，当然你可以取别的名字，记得在myio.py的handle_message函数里把对应代码改掉
 
 1. 下载用于mitie的模型文件放到chat/data文件夹下，[百度网盘](https://pan.baidu.com/s/1kNENvlHLYWZIddmtWJ7Pdg)，密码：p4vx，
 或者[Mega云盘](https://mega.nz/#!EWgTHSxR!NbTXDAuVHwwdP2-Ia8qG7No-JUsSbH5mNQSRDsjztSA)
