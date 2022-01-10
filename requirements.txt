@@ -123,7 +123,7 @@ python-engineio==3.13.2
 python-socketio==4.6.0
 python-telegram-bot==12.8
 pytz==2020.1
-pywin32==227
+pywin32==301
 pywinpty==0.5.7
 PyYAML==5.3.1
 pyzmq==19.0.2
