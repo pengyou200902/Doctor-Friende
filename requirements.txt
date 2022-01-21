@@ -54,7 +54,7 @@ humanfriendly==8.2
 idna==2.10
 importlib-metadata==2.0.0
 ipykernel==5.3.4
-ipython==7.18.1
+ipython==7.31.1
 ipython-genutils==0.2.0
 jedi==0.17.2
 jieba==0.42.1
