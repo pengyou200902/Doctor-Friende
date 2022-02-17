@@ -142,7 +142,7 @@ ruamel.yaml==0.16.12
 ruamel.yaml.clib==0.2.2
 s3transfer==0.3.3
 sacremoses==0.0.43
-sanic==20.9.0
+sanic==20.12.6
 Sanic-Cors==0.10.0.post3
 sanic-jwt==1.4.1
 Sanic-Plugins-Framework==0.9.4
