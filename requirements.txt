@@ -111,7 +111,7 @@ pyasn1-modules==0.2.8
 pycparser==2.20
 pydot==1.4.1
 Pygments==2.7.1
-PyJWT==1.7.1
+PyJWT==2.4.0
 pykwalify==1.7.0
 pymongo==3.10.1
 pyparsing==2.4.7
