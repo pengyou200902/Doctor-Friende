@@ -49,7 +49,7 @@ h5py==2.10.0
 httpcore==0.11.1
 httplib2==0.18.1
 httptools==0.1.1
-httpx==0.15.4
+httpx==0.23.0
 humanfriendly==8.2
 idna==2.10
 importlib-metadata==2.0.0
