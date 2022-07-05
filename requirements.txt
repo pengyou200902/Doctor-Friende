@@ -182,7 +182,7 @@ transformers==3.4.0
 twilio==6.45.4
 typeguard==2.9.1
 tzlocal==2.1
-ujson==3.2.0
+ujson==5.4.0
 urllib3==1.25.10
 wasabi==0.8.0
 wcwidth==0.2.5
