@@ -74,7 +74,7 @@ markdownify==0.5.3
 MarkupSafe==1.1.1
 matplotlib==3.3.2
 mattermostwrapper==2.2
-mistune==0.8.4
+mistune==2.0.3
 mitie==0.7.0
 monotonic==1.5
 multidict==4.7.6
