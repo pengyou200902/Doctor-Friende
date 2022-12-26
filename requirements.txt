@@ -191,7 +191,7 @@ webexteamssdk==1.6
 websocket-client==0.57.0
 websockets==8.1
 Werkzeug==1.0.1
-wheel==0.35.1
+wheel==0.38.1
 wincertstore==0.2
 wrapt==1.12.1
 yarl==1.5.1
