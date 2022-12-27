@@ -151,7 +151,7 @@ scipy==1.5.3
 Send2Trash==1.5.0
 sentencepiece==0.1.94
 sentry-sdk==0.17.8
-setuptools==50.3.0.post20201006
+setuptools==65.5.1
 six==1.15.0
 sklearn-crfsuite==0.3.6
 slackclient==2.9.2
