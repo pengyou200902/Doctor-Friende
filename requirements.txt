@@ -125,7 +125,7 @@ python-telegram-bot==12.8
 pytz==2020.1
 pywin32==227
 pywinpty==0.5.7
-PyYAML==5.3.1
+PyYAML==5.4
 pyzmq==19.0.2
 questionary==1.5.2
 rasa==2.0.2
