@@ -183,7 +183,7 @@ twilio==6.45.4
 typeguard==2.9.1
 tzlocal==2.1
 ujson==3.2.0
-urllib3==1.25.10
+urllib3==1.26.5
 wasabi==0.8.0
 wcwidth==0.2.5
 webencodings==0.5.1
